@@ -16,10 +16,35 @@ defined( 'ABSPATH' ) || exit;
 class WC_Settings_Page extends \WC_Settings_Page {
 	// region MAGIC METHODS
 
+	/**
+	 * WC_Settings_Page constructor.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
+	 * @param   string  $id     ID of the settings page.
+	 * @param   string  $label  Title of the settings page.
+	 */
 	public function __construct( string $id, string $label ) {
-		$this->id = $id;
+		$this->id    = $id;
 		$this->label = $label;
 		parent::__construct();
+	}
+
+	// endregion
+
+	// region INHERITED METHODS
+
+	/**
+	 * Get settings array.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
+	 * @return  array
+	 */
+	public function get_settings(): array {
+		return apply_filters( 'woocommerce_get_settings_' . $this->id, array(), $GLOBALS['current_section'] );
 	}
 
 	// endregion
