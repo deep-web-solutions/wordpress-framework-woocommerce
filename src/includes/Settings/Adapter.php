@@ -182,9 +182,9 @@ class Adapter implements Adapterable {
 	 *
 	 * @throws  NotSupported    Adapter does not support this method currently.
 	 *
-	 * @return  bool
+	 * @return  void
 	 */
-	public function register_field( string $group_id, string $field_id, string $field_title, string $field_type, array $params ): bool {
+	public function register_field( string $group_id, string $field_id, string $field_title, string $field_type, array $params ): void {
 		throw new NotSupported();
 	}
 
