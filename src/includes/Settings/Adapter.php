@@ -113,9 +113,13 @@ class Adapter implements Adapterable {
 		if ( ! did_action( 'woocommerce_sections_' . $page ) ) {
 			return add_filter(
 				'woocommerce_get_settings_' . $page,
-				function( $settings, $current_section ) use ( $group_id, $group_title, $fields, $params ) {
+				function( $settings ) use ( $group_id, $group_title, $fields, $params ) {
+					global $current_section;
+
 					if ( ( $params['section'] ?? '' ) === $current_section ) {
-						$fields = apply_filters( 'dws_wc_framework_setting_fields_' . $group_id, $fields, $params );
+						if ( is_callable( $fields ) ) {
+							$fields = call_user_func( $fields );
+						}
 
 						$settings += array(
 							"{$group_id}_start" => array(
@@ -134,8 +138,7 @@ class Adapter implements Adapterable {
 
 					return $settings;
 				},
-				10,
-				2
+				10
 			);
 		}
 
@@ -169,32 +172,20 @@ class Adapter implements Adapterable {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+	 *
 	 * @param   string  $group_id       The ID of the parent group that the dynamically added field belongs to.
 	 * @param   string  $field_id       The ID of the newly registered field.
 	 * @param   string  $field_title    The title of the newly registered field.
 	 * @param   string  $field_type     The type of custom field being registered.
 	 * @param   array   $params         Other parameters required for the adapter to work.
 	 *
+	 * @throws  NotSupported    Adapter does not support this method currently.
+	 *
 	 * @return  bool
 	 */
 	public function register_field( string $group_id, string $field_id, string $field_title, string $field_type, array $params ): bool {
-		if ( ! did_action( 'woocommerce_sections_' . ( $params['page'] ?? '' ) ) ) {
-			return add_filter(
-				'dws_wc_framework_setting_fields_' . $group_id,
-				function( $fields ) use ( $field_id, $field_title, $field_type, $params ) {
-					$fields[ $field_id ] = array(
-						'id'   => $field_id,
-						'name' => $field_title,
-						'type' => $field_type,
-					) + $params;
-
-					return $fields;
-				},
-				10
-			);
-		}
-
-		return false;
+		throw new NotSupported();
 	}
 
 	// endregion

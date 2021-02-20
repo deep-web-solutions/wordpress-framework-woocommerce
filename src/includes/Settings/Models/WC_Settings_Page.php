@@ -22,29 +22,13 @@ class WC_Settings_Page extends \WC_Settings_Page {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @param   string  $id     ID of the settings page.
-	 * @param   string  $label  Title of the settings page.
+	 * @param   string  $settings_tab_id        ID of the settings tab.
+	 * @param   string  $settings_tab_label     Title of the settings tab.
 	 */
-	public function __construct( string $id, string $label ) {
-		$this->id    = $id;
-		$this->label = $label;
+	public function __construct( string $settings_tab_id, string $settings_tab_label ) {
+		$this->id    = $settings_tab_id;
+		$this->label = $settings_tab_label;
 		parent::__construct();
-	}
-
-	// endregion
-
-	// region INHERITED METHODS
-
-	/**
-	 * Get settings array.
-	 *
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @return  array
-	 */
-	public function get_settings(): array {
-		return apply_filters( 'woocommerce_get_settings_' . $this->id, array(), $GLOBALS['current_section'] );
 	}
 
 	// endregion
