@@ -118,7 +118,7 @@ class Adapter implements Adapterable {
 
 					if ( ( $params['section'] ?? '' ) === $current_section ) {
 						if ( is_callable( $fields ) ) {
-							$fields = call_user_func( $fields );
+							$fields = call_user_func_array( $fields, $params['args'] ?? array() );
 						}
 
 						$settings += array(
