@@ -121,11 +121,11 @@ class WC_Adapter implements SettingsAdapterInterface {
 							$fields = call_user_func_array( $fields, $params['args'] ?? array() );
 						}
 
-						$fields = array_map(
-							function( array $field ) use ( $group_id ) {
+						array_walk(
+							$fields,
+							function( &$field ) use ( $group_id ) {
 								$field['id'] = "{$group_id}_{$field['id']}";
-							},
-							$fields
+							}
 						);
 
 						$settings += array(
