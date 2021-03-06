@@ -9,6 +9,8 @@
  * @copyright           2020 Deep Web Solutions GmbH
  * @license             GPL-3.0-or-later
  *
+ * @noinspection PhpMissingReturnTypeInspection
+ *
  * @wordpress-plugin
  * Plugin Name:             DWS WordPress Framework WooCommerce
  * Description:             A set of related classes to help kickstart the development of a plugin for WooCommerce.
@@ -47,7 +49,7 @@ define( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_WOOCOMMERCE_VERSION', '1.0.0' );
  *
  * @return  string
  */
-function dws_wp_framework_get_woocommerce_name(): string {
+function dws_wp_framework_get_woocommerce_name() {
 	return constant( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_WOOCOMMERCE_NAME' );
 }
 
@@ -59,7 +61,7 @@ function dws_wp_framework_get_woocommerce_name(): string {
  *
  * @return  string
  */
-function dws_wp_framework_get_woocommerce_version(): string {
+function dws_wp_framework_get_woocommerce_version() {
 	return constant( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_WOOCOMMERCE_VERSION' );
 }
 
@@ -75,7 +77,7 @@ define( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_WOOCOMMERCE_MIN_WP', '5.5' );
  *
  * @return  string
  */
-function dws_wp_framework_get_woocommerce_min_php(): string {
+function dws_wp_framework_get_woocommerce_min_php() {
 	return constant( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_WOOCOMMERCE_MIN_PHP' );
 }
 
@@ -87,25 +89,28 @@ function dws_wp_framework_get_woocommerce_min_php(): string {
  *
  * @return  string
  */
-function dws_wp_framework_get_woocommerce_min_wp(): string {
+function dws_wp_framework_get_woocommerce_min_wp() {
 	return constant( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_WOOCOMMERCE_MIN_WP' );
 }
 
 // Bootstrap the settings (maybe)!
 if ( dws_wp_framework_check_php_wp_requirements_met( dws_wp_framework_get_woocommerce_min_php(), dws_wp_framework_get_woocommerce_min_wp() ) ) {
-	add_action(
-		'plugins_loaded',
-		function() {
-			define(
-				__NAMESPACE__ . '\DWS_WP_FRAMEWORK_WOOCOMMERCE_INIT',
-				defined( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_BOOTSTRAPPER_INIT' ) && DWS_WP_FRAMEWORK_BOOTSTRAPPER_INIT &&
-				defined( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_HELPERS_INIT' ) && DWS_WP_FRAMEWORK_HELPERS_INIT &&
-				defined( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_UTILITIES_INIT' ) && DWS_WP_FRAMEWORK_UTILITIES_INIT &&
-				defined( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_SETTINGS_INIT' ) && DWS_WP_FRAMEWORK_SETTINGS_INIT
-			);
-		},
-		PHP_INT_MIN + 10
-	);
+	$dws_woocommerce_init_function = function() {
+		define(
+			__NAMESPACE__ . '\DWS_WP_FRAMEWORK_WOOCOMMERCE_INIT',
+			defined( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_BOOTSTRAPPER_INIT' ) && DWS_WP_FRAMEWORK_BOOTSTRAPPER_INIT &&
+			defined( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_HELPERS_INIT' ) && DWS_WP_FRAMEWORK_HELPERS_INIT &&
+			defined( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_FOUNDATIONS_INIT' ) && DWS_WP_FRAMEWORK_FOUNDATIONS_INIT &&
+			defined( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_UTILITIES_INIT' ) && DWS_WP_FRAMEWORK_UTILITIES_INIT &&
+			defined( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_SETTINGS_INIT' ) && DWS_WP_FRAMEWORK_SETTINGS_INIT
+		);
+	};
+
+	if ( did_action( 'plugins_loaded' ) ) {
+		call_user_func( $dws_woocommerce_init_function );
+	} else {
+		add_action( 'plugins_loaded', $dws_woocommerce_init_function, PHP_INT_MIN + 600 );
+	}
 } else {
 	define( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_WOOCOMMERCE_INIT', false );
 	dws_wp_framework_output_requirements_error( dws_wp_framework_get_woocommerce_name(), dws_wp_framework_get_woocommerce_version(), dws_wp_framework_get_woocommerce_min_php(), dws_wp_framework_get_woocommerce_min_wp() );

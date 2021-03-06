@@ -2,9 +2,9 @@
 
 namespace DeepWebSolutions\Framework\WooCommerce\Settings;
 
+use DeepWebSolutions\Framework\Foundations\Exceptions\NotSupportedException;
 use DeepWebSolutions\Framework\Helpers\WordPress\Users;
-use DeepWebSolutions\Framework\Settings\Exceptions\NotSupported;
-use DeepWebSolutions\Framework\Settings\Interfaces\Actions\Adapterable;
+use DeepWebSolutions\Framework\Settings\SettingsAdapterInterface;
 use DeepWebSolutions\Framework\WooCommerce\Settings\Models\WC_Settings_Page;
 use GuzzleHttp\Promise\Promise;
 use GuzzleHttp\Promise\Utils;
@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
  * @author  Antonius Hegyes <a.hegyes@deep-web-solutions.com>
  * @package DeepWebSolutions\WP-Framework\WooCommerce\Settings
  */
-class Adapter implements Adapterable {
+class WC_Adapter implements SettingsAdapterInterface {
 	// region CREATE
 
 	/**
@@ -109,7 +109,7 @@ class Adapter implements Adapterable {
 	 *
 	 * @return  bool
 	 */
-	public function register_settings_group( string $group_id, string $group_title, array $fields, string $page, array $params ): bool {
+	public function register_options_group( string $group_id, string $group_title, array $fields, string $page, array $params ): bool {
 		if ( ! did_action( 'woocommerce_sections_' . $page ) ) {
 			return add_filter(
 				'woocommerce_get_settings_' . $page,
@@ -158,12 +158,12 @@ class Adapter implements Adapterable {
 	 * @param   array   $fields         The fields to be registered with the group.
 	 * @param   array   $params         Other parameters required for the adapter to work.
 	 *
-	 * @throws  NotSupported    Adapter does not support this method currently.
+	 * @throws  NotSupportedException   Adapter does not support this method currently.
 	 *
 	 * @return  void
 	 */
 	public function register_generic_group( string $group_id, string $group_title, array $fields, array $params ): void {
-		throw new NotSupported();
+		throw new NotSupportedException();
 	}
 
 	/**
@@ -180,12 +180,12 @@ class Adapter implements Adapterable {
 	 * @param   string  $field_type     The type of custom field being registered.
 	 * @param   array   $params         Other parameters required for the adapter to work.
 	 *
-	 * @throws  NotSupported    Adapter does not support this method currently.
+	 * @throws  NotSupportedException   Adapter does not support this method currently.
 	 *
 	 * @return  void
 	 */
 	public function register_field( string $group_id, string $field_id, string $field_title, string $field_type, array $params ): void {
-		throw new NotSupported();
+		throw new NotSupportedException();
 	}
 
 	// endregion
@@ -206,7 +206,7 @@ class Adapter implements Adapterable {
 	 *
 	 * @return  mixed
 	 */
-	public function get_setting_value( string $field_id, string $settings_id = '', array $params = array() ) {
+	public function get_option_value( string $field_id, string $settings_id = '', array $params = array() ) {
 		return get_option( $field_id, $params['default'] ?? false );
 	}
 
@@ -222,12 +222,12 @@ class Adapter implements Adapterable {
 	 * @param   mixed   $object_id      The ID of the object the data is for.
 	 * @param   array   $params         Other parameters required for the adapter to work.
 	 *
-	 * @throws  NotSupported    Adapter does not support this method currently.
+	 * @throws  NotSupportedException   Adapter does not support this method currently.
 	 *
 	 * @return  void
 	 */
 	public function get_field_value( string $field_id, $object_id, array $params ): void {
-		throw new NotSupported();
+		throw new NotSupportedException();
 	}
 
 	// endregion
@@ -249,7 +249,7 @@ class Adapter implements Adapterable {
 	 *
 	 * @return  bool
 	 */
-	public function update_settings_value( string $field_id, $value, string $settings_id = '', array $params = array() ): bool {
+	public function update_option_value( string $field_id, $value, string $settings_id = '', array $params = array() ): bool {
 		return update_option( $field_id, $value, $params['autoload'] ?? null );
 	}
 
@@ -266,12 +266,12 @@ class Adapter implements Adapterable {
 	 * @param   mixed   $object_id      The ID of the object the update is for.
 	 * @param   array   $params         Other parameters required for the adapter to work.
 	 *
-	 * @throws  NotSupported    Adapter does not support this method currently.
+	 * @throws  NotSupportedException   Adapter does not support this method currently.
 	 *
 	 * @return  void
 	 */
 	public function update_field_value( string $field_id, $value, $object_id, array $params ): void {
-		throw new NotSupported();
+		throw new NotSupportedException();
 	}
 
 	// endregion
@@ -292,7 +292,7 @@ class Adapter implements Adapterable {
 	 *
 	 * @return  bool
 	 */
-	public function delete_setting( string $field_id, string $settings_id = '', array $params = array() ): bool {
+	public function delete_option( string $field_id, string $settings_id = '', array $params = array() ): bool {
 		return delete_option( $field_id );
 	}
 
@@ -308,12 +308,12 @@ class Adapter implements Adapterable {
 	 * @param   mixed   $object_id  The ID of the object the deletion is for.
 	 * @param   array   $params     Other parameters required for the adapter to work.
 	 *
-	 * @throws  NotSupported    Adapter does not support this method currently.
+	 * @throws  NotSupportedException   Adapter does not support this method currently.
 	 *
 	 * @return  void
 	 */
 	public function delete_field( string $field_id, $object_id, array $params ): void {
-		throw new NotSupported();
+		throw new NotSupportedException();
 	}
 
 	// endregion
