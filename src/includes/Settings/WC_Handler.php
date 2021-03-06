@@ -23,9 +23,10 @@ class WC_Handler extends AbstractHandler {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @param   WC_Adapter  $adapter    Instance of the adapter to the WC settings framework.
+	 * @param   WC_Adapter|null     $adapter    Instance of the adapter to the WC settings framework.
 	 */
-	public function __construct( WC_Adapter $adapter ) { // phpcs:ignore
+	public function __construct( ?WC_Adapter $adapter = null ) { // phpcs:ignore
+		$adapter = $adapter ?? new WC_Adapter();
 		parent::__construct( $adapter );
 	}
 
