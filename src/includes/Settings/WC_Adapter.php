@@ -121,6 +121,13 @@ class WC_Adapter implements SettingsAdapterInterface {
 							$fields = call_user_func_array( $fields, $params['args'] ?? array() );
 						}
 
+						$fields = array_map(
+							function( array $field ) use ( $group_id ) {
+								$field['id'] = "{$group_id}_{$field['id']}";
+							},
+							$fields
+						);
+
 						$settings += array(
 							"{$group_id}_start" => array(
 								'name' => $group_title,
@@ -201,13 +208,13 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 *
 	 * @param   string  $field_id       The ID of the field within the settings to read from the database.
-	 * @param   string  $settings_id    NOT USED BY THIS ADAPTER.
+	 * @param   string  $settings_id    The ID of the settings group.
 	 * @param   array   $params         Other parameters required for the adapter to work.
 	 *
 	 * @return  mixed
 	 */
-	public function get_option_value( string $field_id, string $settings_id = '', array $params = array() ) {
-		return get_option( $field_id, $params['default'] ?? false );
+	public function get_option_value( string $field_id, string $settings_id, array $params = array() ) {
+		return get_option( "{$settings_id}_{$field_id}", $params['default'] ?? false );
 	}
 
 	/**
@@ -244,13 +251,13 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 *
 	 * @param   string  $field_id       The ID of the field within the settings to update.
 	 * @param   mixed   $value          The new value of the setting.
-	 * @param   string  $settings_id    NOT USED BY THIS ADAPTER.
+	 * @param   string  $settings_id    The ID of the settings group.
 	 * @param   array   $params         Other parameters required for the adapter to work.
 	 *
 	 * @return  bool
 	 */
-	public function update_option_value( string $field_id, $value, string $settings_id = '', array $params = array() ): bool {
-		return update_option( $field_id, $value, $params['autoload'] ?? null );
+	public function update_option_value( string $field_id, $value, string $settings_id, array $params = array() ): bool {
+		return update_option( "{$settings_id}_{$field_id}", $value, $params['autoload'] ?? null );
 	}
 
 	/**
@@ -287,13 +294,13 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 *
 	 * @param   string  $field_id       The ID of the settings field to remove from the database. Empty string to delete the whole group.
-	 * @param   string  $settings_id    NOT USED BY THIS ADAPTER.
+	 * @param   string  $settings_id    The ID of the settings group.
 	 * @param   array   $params         Other parameters required for the adapter to work.
 	 *
 	 * @return  bool
 	 */
-	public function delete_option( string $field_id, string $settings_id = '', array $params = array() ): bool {
-		return delete_option( $field_id );
+	public function delete_option( string $field_id, string $settings_id, array $params = array() ): bool {
+		return delete_option( "{$settings_id}_{$field_id}" );
 	}
 
 	/**
