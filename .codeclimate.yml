@@ -5,4 +5,5 @@ plugins:
       allow_strong_copyleft: true
   phpcodesniffer:
     enabled: true
-  
+    config:
+      standard: "phpcs.xml.dist"
