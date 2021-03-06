@@ -3,3 +3,6 @@ plugins:
     enabled: true
     config:
       allow_strong_copyleft: true
+  phpcodesniffer:
+    enabled: true
+  
