@@ -3,11 +3,3 @@ plugins:
     enabled: true
     config:
       allow_strong_copyleft: true
-  phan:
-    enabled: true
-    config:
-      file_extensions: "php"
-      channel: "beta"
-  sonar-php:
-    enabled: true
-    
