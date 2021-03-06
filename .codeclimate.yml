@@ -3,7 +3,11 @@ plugins:
     enabled: true
     config:
       allow_strong_copyleft: true
-  phpcodesniffer:
+  phan:
     enabled: true
     config:
-      standard: "phpcs.xml.dist"
+      file_extensions: "php"
+      channel: "beta"
+  sonar-php:
+    enabled: true
+    
