@@ -123,8 +123,8 @@ class WC_Adapter implements SettingsAdapterInterface {
 
 						array_walk(
 							$fields,
-							function( &$field ) use ( $group_id ) {
-								$field['id'] = "{$group_id}_{$field['id']}";
+							function( &$field, $key ) use ( $group_id ) {
+								$field['id'] = "{$group_id}_{$key}";
 							}
 						);
 
