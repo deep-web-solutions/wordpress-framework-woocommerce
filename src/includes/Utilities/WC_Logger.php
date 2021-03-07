@@ -5,7 +5,6 @@ namespace DeepWebSolutions\Framework\WooCommerce\Utilities;
 use DeepWebSolutions\Framework\Foundations\Plugin\PluginAwareInterface;
 use DeepWebSolutions\Framework\Foundations\Plugin\PluginAwareTrait;
 use Psr\Log\LoggerInterface;
-use WC_Logger as WC_Plugin_Logger;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -17,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  * @author  Antonius Hegyes <a.hegyes@deep-web-solutions.com>
  * @package DeepWebSolutions\WP-Framework\WooCommerce\Utilities
  */
-class WC_Logger extends WC_Plugin_Logger implements LoggerInterface, PluginAwareInterface {
+class WC_Logger extends \WC_Logger implements LoggerInterface, PluginAwareInterface {
 	// region TRAITS
 
 	use PluginAwareTrait;
