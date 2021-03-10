@@ -52,12 +52,9 @@ class WC_Handler extends AbstractHandler {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-	 * @param   string  $context    The action being executed.
-	 *
 	 * @return  string
 	 */
-	public function get_action_hook( string $context ): string {
+	public function get_action_hook(): string {
 		return 'woocommerce_loaded';
 	}
 
