@@ -9,7 +9,7 @@ use DeepWebSolutions\Framework\WooCommerce\Settings\Models\WC_Settings_Page;
 use GuzzleHttp\Promise\Promise;
 use GuzzleHttp\Promise\Utils;
 
-defined( 'ABSPATH' ) || exit;
+\defined( 'ABSPATH' ) || exit;
 
 /**
  * Interacts with the Settings API of the WooCommerce plugin.
@@ -43,8 +43,8 @@ class WC_Adapter implements SettingsAdapterInterface {
 	public function register_menu_page( string $page_title, string $menu_title, string $menu_slug, string $capability = 'manage_woocommerce', array $params = array() ): Promise {
 		$promise = new Promise();
 
-		if ( Users::has_capabilities( array( $capability ) ) ) {
-			add_filter(
+		if ( Users::has_capabilities( (array) $capability ) ) {
+			\add_filter(
 				'woocommerce_get_settings_pages',
 				function( $settings ) use ( $promise, $menu_slug, $menu_title ) {
 					$settings_page = new WC_Settings_Page( $menu_slug, $menu_title );
@@ -81,8 +81,8 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 * @return  string|null
 	 */
 	public function register_submenu_page( string $parent_slug, string $page_title, string $menu_title, string $menu_slug, string $capability = 'manage_woocommerce', array $params = array() ): ?string {
-		if ( Users::has_capabilities( array( $capability ) ) && ! did_action( 'woocommerce_sections_' . $parent_slug ) ) {
-			add_filter(
+		if ( Users::has_capabilities( (array) $capability ) && ! \did_action( 'woocommerce_sections_' . $parent_slug ) ) {
+			\add_filter(
 				'woocommerce_get_sections_' . $parent_slug,
 				function( $sections ) use ( $menu_slug, $menu_title ) {
 					return $sections + array( $menu_slug => $menu_title );
@@ -110,18 +110,18 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 * @return  bool
 	 */
 	public function register_options_group( string $group_id, string $group_title, array $fields, string $page, array $params ): bool {
-		if ( ! did_action( 'woocommerce_sections_' . $page ) ) {
-			return add_filter(
+		if ( ! \did_action( 'woocommerce_sections_' . $page ) ) {
+			return \add_filter(
 				'woocommerce_get_settings_' . $page,
 				function( $settings ) use ( $group_id, $group_title, $fields, $params ) {
 					global $current_section;
 
 					if ( ( $params['section'] ?? '' ) === $current_section ) {
-						if ( is_callable( $fields ) ) {
-							$fields = call_user_func_array( $fields, $params['args'] ?? array() );
+						if ( \is_callable( $fields ) ) {
+							$fields = \call_user_func_array( $fields, $params['args'] ?? array() );
 						}
 
-						array_walk(
+						\array_walk(
 							$fields,
 							function( &$field, $key ) use ( $group_id ) {
 								$field['id'] = "{$group_id}_{$key}";
@@ -214,7 +214,7 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 * @return  mixed
 	 */
 	public function get_option_value( string $field_id, string $settings_id, array $params = array() ) {
-		return get_option( "{$settings_id}_{$field_id}", $params['default'] ?? false );
+		return \get_option( "{$settings_id}_{$field_id}", $params['default'] ?? false );
 	}
 
 	/**
@@ -257,7 +257,7 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 * @return  bool
 	 */
 	public function update_option_value( string $field_id, $value, string $settings_id, array $params = array() ): bool {
-		return update_option( "{$settings_id}_{$field_id}", $value, $params['autoload'] ?? null );
+		return \update_option( "{$settings_id}_{$field_id}", $value, $params['autoload'] ?? null );
 	}
 
 	/**
@@ -300,7 +300,7 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 * @return  bool
 	 */
 	public function delete_option( string $field_id, string $settings_id, array $params = array() ): bool {
-		return delete_option( "{$settings_id}_{$field_id}" );
+		return \delete_option( "{$settings_id}_{$field_id}" );
 	}
 
 	/**

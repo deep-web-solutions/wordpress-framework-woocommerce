@@ -4,7 +4,7 @@ namespace DeepWebSolutions\Framework\WooCommerce\Settings;
 
 use DeepWebSolutions\Framework\Settings\Handlers\AbstractHandler;
 
-defined( 'ABSPATH' ) || exit;
+\defined( 'ABSPATH' ) || exit;
 
 /**
  * Interacts with the Settings API of the WooCommerce plugin.

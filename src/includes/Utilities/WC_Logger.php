@@ -6,7 +6,7 @@ use DeepWebSolutions\Framework\Foundations\Plugin\PluginAwareInterface;
 use DeepWebSolutions\Framework\Foundations\Plugin\PluginAwareTrait;
 use Psr\Log\LoggerInterface;
 
-defined( 'ABSPATH' ) || exit;
+\defined( 'ABSPATH' ) || exit;
 
 /**
  * Wrapper around the WC_Logger class in order to use the WC Logger as a PSR-3 logger.
@@ -65,6 +65,7 @@ class WC_Logger extends \WC_Logger implements LoggerInterface, PluginAwareInterf
 	 * @version 1.0.0
 	 *
 	 * @noinspection PhpDocSignatureInspection
+	 * @noinspection PhpMissingParamTypeInspection
 	 *
 	 * @param   string  $level      A PSR-3 compliant log level.
 	 * @param   string  $message    Log message.
