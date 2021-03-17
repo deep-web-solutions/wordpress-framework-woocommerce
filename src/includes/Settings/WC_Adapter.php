@@ -214,7 +214,8 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 * @return  mixed
 	 */
 	public function get_option_value( string $field_id, string $settings_id, array $params = array() ) {
-		return \get_option( "{$settings_id}_{$field_id}", $params['default'] ?? false );
+		$default = isset( $params['default'] ) || array_key_exists( 'default', $params ) ? $params['default'] : false;
+		return \get_option( "{$settings_id}_{$field_id}", $default );
 	}
 
 	/**
