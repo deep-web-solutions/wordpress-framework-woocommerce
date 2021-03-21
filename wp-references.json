@@ -5,6 +5,7 @@
         "did_action",
         "add_action",
         "add_filter",
+        "wp_parse_args",
         "get_option",
         "update_option",
         "delete_option"
