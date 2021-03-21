@@ -1,0 +1,7 @@
+{
+    "classes": [
+        "WC_Logger",
+        "WC_Settings_Page"
+    ],
+    "functions": []
+}

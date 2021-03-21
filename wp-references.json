@@ -1,0 +1,12 @@
+{
+    "classes": [],
+    "functions": [
+        "apply_filters",
+        "did_action",
+        "add_action",
+        "add_filter",
+        "get_option",
+        "update_option",
+        "delete_option"
+    ]
+}

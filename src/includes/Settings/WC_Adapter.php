@@ -6,8 +6,6 @@ use DeepWebSolutions\Framework\Foundations\Exceptions\NotSupportedException;
 use DeepWebSolutions\Framework\Helpers\WordPress\Users;
 use DeepWebSolutions\Framework\Settings\SettingsAdapterInterface;
 use DeepWebSolutions\Framework\WooCommerce\Settings\Models\WC_Settings_Page;
-use GuzzleHttp\Promise\Promise;
-use GuzzleHttp\Promise\Utils;
 
 \defined( 'ABSPATH' ) || exit;
 
@@ -38,27 +36,20 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 * @param   string  $capability     The capability required for this menu to be displayed to the user.
 	 * @param   array   $params         Other params required for the adapter to work.
 	 *
-	 * @return  Promise
+	 * @return  bool
 	 */
-	public function register_menu_page( string $page_title, string $menu_title, string $menu_slug, string $capability = 'manage_woocommerce', array $params = array() ): Promise {
-		$promise = new Promise();
-
-		if ( Users::has_capabilities( (array) $capability ) ) {
-			\add_filter(
-				'woocommerce_get_settings_pages',
-				function( $settings ) use ( $promise, $menu_slug, $menu_title ) {
-					$settings_page = new WC_Settings_Page( $menu_slug, $menu_title );
-
-					$settings[] = $settings_page;
-					$promise->resolve( $settings_page );
-					Utils::queue()->run();
-
-					return $settings;
-				}
-			);
+	public function register_menu_page( string $page_title, string $menu_title, string $menu_slug, string $capability = 'manage_woocommerce', array $params = array() ): bool {
+		if ( ! Users::has_capabilities( (array) $capability ) ) {
+			return false;
 		}
 
-		return $promise;
+		return \add_filter(
+			'woocommerce_get_settings_pages',
+			function( $settings ) use ( $menu_slug, $menu_title ) {
+				$settings[] = new WC_Settings_Page( $menu_slug, $menu_title );
+				return $settings;
+			}
+		);
 	}
 
 	/**
@@ -110,46 +101,46 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 * @return  bool
 	 */
 	public function register_options_group( string $group_id, string $group_title, array $fields, string $page, array $params ): bool {
-		if ( ! \did_action( 'woocommerce_sections_' . $page ) ) {
-			return \add_filter(
-				'woocommerce_get_settings_' . $page,
-				function( $settings ) use ( $group_id, $group_title, $fields, $params ) {
-					global $current_section;
-
-					if ( ( $params['section'] ?? '' ) === $current_section ) {
-						if ( \is_callable( $fields ) ) {
-							$fields = \call_user_func_array( $fields, $params['args'] ?? array() );
-						}
-
-						\array_walk(
-							$fields,
-							function( &$field, $key ) use ( $group_id ) {
-								$field['id'] = "{$group_id}_{$key}";
-							}
-						);
-
-						$settings += array(
-							"{$group_id}_start" => array(
-								'name' => $group_title,
-								'type' => 'title',
-								'desc' => $params['desc'] ?? '',
-								'id'   => "{$group_id}_start",
-							),
-						) + $fields + array(
-							"{$group_id}_end" => array(
-								'type' => 'sectionend',
-								'id'   => "{$group_id}_end",
-							),
-						);
-					}
-
-					return $settings;
-				},
-				10
-			);
+		if ( \did_action( 'woocommerce_sections_' . $page ) ) {
+			return false;
 		}
 
-		return false;
+		return \add_filter(
+			'woocommerce_get_settings_' . $page,
+			function( $settings ) use ( $group_id, $group_title, $fields, $params ) {
+				if ( ( $params['section'] ?? '' ) !== $GLOBALS['current_section'] ) {
+					return $settings;
+				}
+
+				if ( \is_callable( $fields ) ) {
+					$fields = \call_user_func_array( $fields, $params['args'] ?? array() );
+				}
+
+				\array_walk(
+					$fields,
+					function( &$field, $key ) use ( $group_id ) {
+						$field['id'] = "{$group_id}_{$key}";
+					}
+				);
+
+				$settings += array(
+					"{$group_id}_start" => array(
+						'name' => $group_title,
+						'type' => 'title',
+						'desc' => $params['desc'] ?? '',
+						'id'   => "{$group_id}_start",
+					),
+				) + $fields + array(
+					"{$group_id}_end" => array(
+						'type' => 'sectionend',
+						'id'   => "{$group_id}_end",
+					),
+				);
+
+				return $settings;
+			},
+			10
+		);
 	}
 
 	/**
@@ -163,13 +154,14 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 * @param   string  $group_id       The ID of the settings group.
 	 * @param   string  $group_title    The title of the settings group.
 	 * @param   array   $fields         The fields to be registered with the group.
+	 * @param   array   $locations      Where the group should be outputted.
 	 * @param   array   $params         Other parameters required for the adapter to work.
 	 *
 	 * @throws  NotSupportedException   Adapter does not support this method currently.
 	 *
 	 * @return  void
 	 */
-	public function register_generic_group( string $group_id, string $group_title, array $fields, array $params ): void {
+	public function register_generic_group( string $group_id, string $group_title, array $fields, array $locations, array $params ): void {
 		throw new NotSupportedException();
 	}
 
@@ -214,8 +206,8 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 * @return  mixed
 	 */
 	public function get_option_value( string $field_id, string $settings_id, array $params = array() ) {
-		$default = isset( $params['default'] ) || array_key_exists( 'default', $params ) ? $params['default'] : false;
-		return \get_option( "{$settings_id}_{$field_id}", $default );
+		$params = \wp_parse_args( $params, array( 'default' => false ) );
+		return \get_option( "{$settings_id}_{$field_id}", $params['default'] );
 	}
 
 	/**

@@ -70,9 +70,9 @@ if ( dws_wp_framework_check_php_wp_requirements_met( dws_wp_framework_get_woocom
 	\define( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_WOOCOMMERCE_INIT', false );
 	dws_wp_framework_output_requirements_error( dws_wp_framework_get_woocommerce_name(), dws_wp_framework_get_woocommerce_version(), dws_wp_framework_get_woocommerce_min_php(), dws_wp_framework_get_woocommerce_min_wp() );
 
-	// Stop the core from initializing if the settings module failed.
+	// Stop the foundations from initializing if the settings module failed.
 	\add_filter(
-		'dws_wp_framework_core_init_status',
+		'dws_wp_framework_foundations_init_status',
 		function( bool $init, string $namespace ) {
 			return ( __NAMESPACE__ === $namespace ) ? false : $init;
 		},
