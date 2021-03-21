@@ -57,7 +57,7 @@ if ( dws_wp_framework_check_php_wp_requirements_met( dws_wp_framework_get_woocom
 				'dws_wp_framework_woocommerce_init_status',
 				dws_wp_framework_get_settings_init_status(),
 				__NAMESPACE__
-			),
+			)
 		);
 	};
 
