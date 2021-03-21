@@ -17,7 +17,7 @@ use DeepWebSolutions\Framework\Foundations\Utilities\Storage\StoreableTrait;
  * @author  Antonius Hegyes <a.hegyes@deep-web-solutions.com>
  * @package DeepWebSolutions\WP-Framework\WooCommerce\Utilities
  */
-class WC_Logger extends \WC_Logger implements LoggingHandlerInterface, PluginAwareInterface {
+class WC_LoggingHandler extends \WC_Logger implements LoggingHandlerInterface, PluginAwareInterface {
 	// region TRAITS
 
 	use PluginAwareTrait;
@@ -34,7 +34,7 @@ class WC_Logger extends \WC_Logger implements LoggingHandlerInterface, PluginAwa
 	 * @param   array|null      $handlers       Array of log handlers.
 	 * @param   string|null     $threshold      Define an explicit threshold.
 	 *
-	 * @see     WC_Logger::__construct()
+	 * @see     WC_LoggingHandler::__construct()
 	 */
 	public function __construct( string $handler_id, $handlers = null, $threshold = null ) {
 		$this->storeable_id = $handler_id;
@@ -70,7 +70,7 @@ class WC_Logger extends \WC_Logger implements LoggingHandlerInterface, PluginAwa
 	 * @param   string  $message    Log message.
 	 * @param   array   $context    Additional information for log handlers.
 	 *
-	 * @see     WC_Logger::log()
+	 * @see     WC_LoggingHandler::log()
 	 */
 	public function log( $level, $message, $context = array() ) {
 		$context['source'] = $this->get_plugin()->get_plugin_slug() . '.' . $this->get_id();
