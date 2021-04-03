@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5811ab4028385a6374aaa2eebe105cf7",
+    "content-hash": "9781c2ccb742056dc662718db723ab3a",
     "packages": [
         {
             "name": "deep-web-solutions/wp-framework-bootstrapper",
@@ -76,16 +76,16 @@
         },
         {
             "name": "deep-web-solutions/wp-framework-foundations",
-            "version": "v1.1.1",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/deep-web-solutions/wordpress-framework-foundations.git",
-                "reference": "45c6a11e6ee7ff9b96496d11d45f551d5b9f30e3"
+                "reference": "383aa3de15a0c3cf559bde4348386c01807e892b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deep-web-solutions/wordpress-framework-foundations/zipball/45c6a11e6ee7ff9b96496d11d45f551d5b9f30e3",
-                "reference": "45c6a11e6ee7ff9b96496d11d45f551d5b9f30e3",
+                "url": "https://api.github.com/repos/deep-web-solutions/wordpress-framework-foundations/zipball/383aa3de15a0c3cf559bde4348386c01807e892b",
+                "reference": "383aa3de15a0c3cf559bde4348386c01807e892b",
                 "shasum": ""
             },
             "require": {
@@ -147,9 +147,9 @@
             ],
             "support": {
                 "issues": "https://github.com/deep-web-solutions/wordpress-framework-foundations/issues",
-                "source": "https://github.com/deep-web-solutions/wordpress-framework-foundations/tree/v1.1.1"
+                "source": "https://github.com/deep-web-solutions/wordpress-framework-foundations/tree/v1.2.1"
             },
-            "time": "2021-04-02T19:18:26+00:00"
+            "time": "2021-04-03T14:29:48+00:00"
         },
         {
             "name": "deep-web-solutions/wp-framework-helpers",
@@ -230,17 +230,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/deep-web-solutions/wordpress-framework-settings.git",
-                "reference": "aed0852122cb63c5d3d5282945896dcfeba3a618"
+                "reference": "6f4bbd099269162f3ba6243ad437ec1b70fa87a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deep-web-solutions/wordpress-framework-settings/zipball/aed0852122cb63c5d3d5282945896dcfeba3a618",
-                "reference": "aed0852122cb63c5d3d5282945896dcfeba3a618",
+                "url": "https://api.github.com/repos/deep-web-solutions/wordpress-framework-settings/zipball/6f4bbd099269162f3ba6243ad437ec1b70fa87a7",
+                "reference": "6f4bbd099269162f3ba6243ad437ec1b70fa87a7",
                 "shasum": ""
             },
             "require": {
                 "deep-web-solutions/wp-framework-bootstrapper": "^1.1.4",
-                "deep-web-solutions/wp-framework-foundations": "^1.1.1",
+                "deep-web-solutions/wp-framework-foundations": "^1.2.0",
                 "deep-web-solutions/wp-framework-helpers": "^1.1.1",
                 "deep-web-solutions/wp-framework-utilities": "master@dev"
             },
@@ -302,7 +302,7 @@
                 "issues": "https://github.com/deep-web-solutions/wordpress-framework-settings/issues",
                 "source": "https://github.com/deep-web-solutions/wordpress-framework-settings/tree/master"
             },
-            "time": "2021-04-02T20:10:59+00:00"
+            "time": "2021-04-03T12:46:21+00:00"
         },
         {
             "name": "deep-web-solutions/wp-framework-utilities",
@@ -310,17 +310,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/deep-web-solutions/wordpress-framework-utilities.git",
-                "reference": "5f60a799256acdffc5e84444aeb152126fff8caa"
+                "reference": "521b494de9bd75199f98ed8f7062c5569aed3df2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deep-web-solutions/wordpress-framework-utilities/zipball/5f60a799256acdffc5e84444aeb152126fff8caa",
-                "reference": "5f60a799256acdffc5e84444aeb152126fff8caa",
+                "url": "https://api.github.com/repos/deep-web-solutions/wordpress-framework-utilities/zipball/521b494de9bd75199f98ed8f7062c5569aed3df2",
+                "reference": "521b494de9bd75199f98ed8f7062c5569aed3df2",
                 "shasum": ""
             },
             "require": {
                 "deep-web-solutions/wp-framework-bootstrapper": "^1.1.4",
-                "deep-web-solutions/wp-framework-foundations": "^1.1.1",
+                "deep-web-solutions/wp-framework-foundations": "^1.2.0",
                 "deep-web-solutions/wp-framework-helpers": "^1.1.1",
                 "php": ">=7.4"
             },
@@ -374,7 +374,7 @@
                 "issues": "https://github.com/deep-web-solutions/wordpress-framework-utilities/issues",
                 "source": "https://github.com/deep-web-solutions/wordpress-framework-utilities/tree/master"
             },
-            "time": "2021-04-02T19:40:34+00:00"
+            "time": "2021-04-03T12:38:26+00:00"
         },
         {
             "name": "psr/container",
