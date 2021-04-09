@@ -1,0 +1,21 @@
+{
+  "name": "dws-wp-framework-woocommerce",
+  "version": "1.0.0",
+  "title": "DWS WordPress Framework - WooCommerce",
+  "author": "Deep Web Solutions GmbH",
+  "homepage": "https://github.com/deep-web-solutions/wordpress-framework-woocommerce#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deep-web-solutions/wordpress-framework-woocommerce.git"
+  },
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/deep-web-solutions/wordpress-framework-woocommerce/issues"
+  },
+  "devDependencies": {
+    "grunt": "^1.3.0",
+    "grunt-text-replace": "^0.4.0",
+    "load-grunt-tasks": "^5.1.0",
+    "time-grunt": "^2.0.0"
+  }
+}
