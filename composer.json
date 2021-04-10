@@ -19,6 +19,15 @@
     }
   ],
 
+  "repositories": [
+    {
+      "type":"composer",
+      "url":"https://wpackagist.org",
+      "only": [
+        "wpackagist-plugin/*"
+      ]
+    }
+  ],
   "require": {
     "deep-web-solutions/wp-framework-bootstrapper": "^1.1.5",
     "deep-web-solutions/wp-framework-helpers": "^1.1.2",
@@ -29,7 +38,7 @@
   "require-dev": {
     "deep-web-solutions/wordpress-configs": "master@dev",
     "johnpbloch/wordpress-core": "5.5.3",
-    "woocommerce/woocommerce": "4.5.2",
+    "wpackagist-plugin/woocommerce": "4.5.2",
 
     "phpmd/phpmd": "2.*",
     "squizlabs/php_codesniffer": "3.*",
