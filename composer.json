@@ -80,5 +80,13 @@
     "coding-standards:fix": [
       "@php ./vendor/bin/phpcbf --standard=phpcs.xml.dist"
     ]
+  },
+
+  "extra": {
+    "installer-paths": {
+      "vendor/wpackagist-plugin/{$name}/": [
+        "type:wordpress-plugin"
+      ]
+    }
   }
 }

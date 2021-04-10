@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b4021a89074bb3ed51507f818bfba6b2",
+    "content-hash": "41bff7e92ab834821ff44ceb15c4f698",
     "packages": [
         {
             "name": "deep-web-solutions/wp-framework-bootstrapper",
