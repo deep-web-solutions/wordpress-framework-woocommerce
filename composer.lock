@@ -227,12 +227,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/deep-web-solutions/wordpress-framework-settings.git",
-                "reference": "cf9eed7fb14325e2deebd863cc1bd113aa1199ef"
+                "reference": "c9e38ad1c937fca4ec6449440079396478c86dd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deep-web-solutions/wordpress-framework-settings/zipball/cf9eed7fb14325e2deebd863cc1bd113aa1199ef",
-                "reference": "cf9eed7fb14325e2deebd863cc1bd113aa1199ef",
+                "url": "https://api.github.com/repos/deep-web-solutions/wordpress-framework-settings/zipball/c9e38ad1c937fca4ec6449440079396478c86dd1",
+                "reference": "c9e38ad1c937fca4ec6449440079396478c86dd1",
                 "shasum": ""
             },
             "require": {
@@ -298,7 +298,7 @@
                 "issues": "https://github.com/deep-web-solutions/wordpress-framework-settings/issues",
                 "source": "https://github.com/deep-web-solutions/wordpress-framework-settings/tree/master"
             },
-            "time": "2021-04-09T19:44:43+00:00"
+            "time": "2021-04-10T09:57:43+00:00"
         },
         {
             "name": "deep-web-solutions/wp-framework-utilities",
@@ -306,12 +306,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/deep-web-solutions/wordpress-framework-utilities.git",
-                "reference": "1dbbf480d57e729d53f1962aa8edb7911c97d759"
+                "reference": "9f6143c36672266f28f3cfb910503d692afa5b67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deep-web-solutions/wordpress-framework-utilities/zipball/1dbbf480d57e729d53f1962aa8edb7911c97d759",
-                "reference": "1dbbf480d57e729d53f1962aa8edb7911c97d759",
+                "url": "https://api.github.com/repos/deep-web-solutions/wordpress-framework-utilities/zipball/9f6143c36672266f28f3cfb910503d692afa5b67",
+                "reference": "9f6143c36672266f28f3cfb910503d692afa5b67",
                 "shasum": ""
             },
             "require": {
@@ -369,7 +369,7 @@
                 "issues": "https://github.com/deep-web-solutions/wordpress-framework-utilities/issues",
                 "source": "https://github.com/deep-web-solutions/wordpress-framework-utilities/tree/master"
             },
-            "time": "2021-04-09T19:33:16+00:00"
+            "time": "2021-04-10T09:16:10+00:00"
         },
         {
             "name": "psr/container",
