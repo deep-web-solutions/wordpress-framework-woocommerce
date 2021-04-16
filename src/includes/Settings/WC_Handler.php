@@ -40,10 +40,15 @@ class WC_Handler extends AbstractSettingsHandler {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
+	 * @param   string  $context    The action being inquired about.
+	 *
 	 * @return  string
 	 */
-	public function get_action_hook(): string {
-		return 'woocommerce_loaded';
+	public function get_action_hook( string $context ): string {
+		switch ( $context ) {
+			default:
+				return 'woocommerce_loaded';
+		}
 	}
 
 	// endregion

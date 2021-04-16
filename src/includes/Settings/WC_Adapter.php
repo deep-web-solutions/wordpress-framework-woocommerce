@@ -69,21 +69,19 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 * @param   string  $capability     The capability required for this menu to be displayed to the user.
 	 * @param   array   $params         Other parameters required for the adapter to work.
 	 *
-	 * @return  string|null
+	 * @return  bool
 	 */
-	public function register_submenu_page( string $parent_slug, string $page_title, string $menu_title, string $menu_slug, string $capability = 'manage_woocommerce', array $params = array() ): ?string {
-		if ( Users::has_capabilities( (array) $capability ) && ! \did_action( 'woocommerce_sections_' . $parent_slug ) ) {
-			\add_filter(
-				'woocommerce_get_sections_' . $parent_slug,
-				function( $sections ) use ( $menu_slug, $menu_title ) {
-					return $sections + array( $menu_slug => $menu_title );
-				}
-			);
-
-			return $menu_slug;
+	public function register_submenu_page( string $parent_slug, string $page_title, string $menu_title, string $menu_slug, string $capability = 'manage_woocommerce', array $params = array() ): bool {
+		if ( ! Users::has_capabilities( (array) $capability ) || \did_action( 'woocommerce_sections_' . $parent_slug ) ) {
+			return false;
 		}
 
-		return null;
+		return \add_filter(
+			'woocommerce_get_sections_' . $parent_slug,
+			function ( $sections ) use ( $menu_slug, $menu_title ) {
+				return $sections + array( $menu_slug => $menu_title );
+			}
+		);
 	}
 
 	/**

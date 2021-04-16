@@ -5,7 +5,7 @@ namespace DeepWebSolutions\Framework\WooCommerce\Utilities;
 use DeepWebSolutions\Framework\Foundations\Logging\LoggingHandlerInterface;
 use DeepWebSolutions\Framework\Foundations\Plugin\PluginAwareInterface;
 use DeepWebSolutions\Framework\Foundations\Plugin\PluginAwareTrait;
-use DeepWebSolutions\Framework\Foundations\Utilities\Storage\StoreableTrait;
+use DeepWebSolutions\Framework\Foundations\Utilities\Storage\StorableTrait;
 
 \defined( 'ABSPATH' ) || exit;
 
@@ -21,14 +21,14 @@ class WC_LoggingHandler extends \WC_Logger implements LoggingHandlerInterface, P
 	// region TRAITS
 
 	use PluginAwareTrait;
-	use StoreableTrait;
+	use StorableTrait;
 
 	// endregion
 
 	// region MAGIC METHODS
 
 	/**
-	 * Logger constructor.
+	 * WC_LoggingHandler constructor.
 	 *
 	 * @param   string          $handler_id     The ID of the logger.
 	 * @param   array|null      $handlers       Array of log handlers.
@@ -37,7 +37,7 @@ class WC_LoggingHandler extends \WC_Logger implements LoggingHandlerInterface, P
 	 * @see     WC_LoggingHandler::__construct()
 	 */
 	public function __construct( string $handler_id, $handlers = null, $threshold = null ) {
-		$this->storeable_id = $handler_id;
+		$this->storable_id = $handler_id;
 		parent::__construct( $handlers, $threshold );
 	}
 
@@ -64,7 +64,6 @@ class WC_LoggingHandler extends \WC_Logger implements LoggingHandlerInterface, P
 	 * @version 1.0.0
 	 *
 	 * @noinspection PhpDocSignatureInspection
-	 * @noinspection PhpMissingParamTypeInspection
 	 *
 	 * @param   string  $level      A PSR-3 compliant log level.
 	 * @param   string  $message    Log message.
