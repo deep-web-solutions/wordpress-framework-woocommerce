@@ -114,26 +114,28 @@ class WC_Adapter implements SettingsAdapterInterface {
 					$fields = \call_user_func_array( $fields, $params['args'] ?? array() );
 				}
 
-				\array_walk(
-					$fields,
-					function( &$field, $key ) use ( $group_id ) {
-						$field['id'] = "{$group_id}_{$key}";
-					}
-				);
+				if ( ! empty( $fields ) && \is_array( $fields ) ) {
+					\array_walk(
+						$fields,
+						function( &$field, $key ) use ( $group_id ) {
+							$field['id'] = "{$group_id}_{$key}";
+						}
+					);
 
-				$settings += array(
-					"{$group_id}_start" => array(
-						'name' => $group_title,
-						'type' => 'title',
-						'desc' => $params['desc'] ?? '',
-						'id'   => "{$group_id}_start",
-					),
-				) + $fields + array(
-					"{$group_id}_end" => array(
-						'type' => 'sectionend',
-						'id'   => "{$group_id}_end",
-					),
-				);
+					$settings += array(
+						"{$group_id}_start" => array(
+							'name' => $group_title,
+							'type' => 'title',
+							'desc' => $params['desc'] ?? '',
+							'id'   => "{$group_id}_start",
+						),
+					) + $fields + array(
+						"{$group_id}_end" => array(
+							'type' => 'sectionend',
+							'id'   => "{$group_id}_end",
+						),
+					);
+				}
 
 				return $settings;
 			},
