@@ -11,10 +11,18 @@
 
 ## Description 
 
-[![Build Status](https://travis-ci.com/deep-web-solutions/wordpress-framework-woocommerce.svg?branch=master)](https://travis-ci.com/deep-web-solutions/wordpress-framework-settings)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+[![PHP Syntax Errors](https://github.com/deep-web-solutions/wordpress-framework-woocommerce/actions/workflows/php-syntax-errors.yml/badge.svg)](https://github.com/deep-web-solutions/wordpress-framework-woocommerce/actions/workflows/php-syntax-errors.yml)
+[![WordPress Coding Standards](https://github.com/deep-web-solutions/wordpress-framework-woocommerce/actions/workflows/wordpress-coding-standards.yml/badge.svg)](https://github.com/deep-web-solutions/wordpress-framework-woocommerce/actions/workflows/wordpress-coding-standards.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f06904ed9eef4291b2be/maintainability)](https://codeclimate.com/github/deep-web-solutions/wordpress-framework-woocommerce/maintainability)
 
-A set of related classes to kick-start WordPress development.
+A set of related classes to kick-start WordPress development. This package builds upon all our other packages to provide
+an easy bridge for working with WooCommerce.
+
+
+## Documentation
+
+Documentation for this module and the rest of the DWS WP Framework can be found [here](https://framework.deep-web-solutions.com/woocommerce-module/motivation-and-how-to-use).
 
 
 ## Installation
