@@ -36,7 +36,7 @@
     "deep-web-solutions/wp-framework-settings": "master@dev"
   },
   "require-dev": {
-    "wpackagist-plugin/woocommerce": "4.5.2",
+    "wpackagist-plugin/woocommerce": "4.5.*",
 
     "deep-web-solutions/wordpress-configs": "master@dev",
     "php-stubs/wordpress-stubs": "5.5.*",
@@ -49,8 +49,6 @@
     "phpcompatibility/phpcompatibility-wp": "*",
     "wp-coding-standards/wpcs": "*"
   },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
 
   "autoload": {
     "psr-4": {
