@@ -206,7 +206,7 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 *
 	 * @return  mixed
 	 */
-	public function get_option_value( string $field_id, string $settings_id, array $params = array() ) {
+	public function get_option( string $field_id, string $settings_id, array $params = array() ) {
 		$params = \wp_parse_args( $params, array( 'default' => false ) );
 		return \get_option( "{$settings_id}_{$field_id}", $params['default'] );
 	}
@@ -227,7 +227,7 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 *
 	 * @return  void
 	 */
-	public function get_field_value( string $field_id, $object_id, array $params ): void {
+	public function get_field( string $field_id, $object_id, array $params ): void {
 		throw new NotSupportedException();
 	}
 
@@ -250,7 +250,7 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 *
 	 * @return  bool
 	 */
-	public function update_option_value( string $field_id, $value, string $settings_id, array $params = array() ): bool {
+	public function update_option( string $field_id, $value, string $settings_id, array $params = array() ): bool {
 		return \update_option( "{$settings_id}_{$field_id}", $value, $params['autoload'] ?? null );
 	}
 
@@ -271,7 +271,7 @@ class WC_Adapter implements SettingsAdapterInterface {
 	 *
 	 * @return  void
 	 */
-	public function update_field_value( string $field_id, $value, $object_id, array $params ): void {
+	public function update_field( string $field_id, $value, $object_id, array $params ): void {
 		throw new NotSupportedException();
 	}
 
