@@ -3,6 +3,7 @@
 namespace DeepWebSolutions\Framework\WooCommerce\Settings;
 
 use DeepWebSolutions\Framework\Foundations\Exceptions\NotSupportedException;
+use DeepWebSolutions\Framework\Helpers\DataTypes\Callables;
 use DeepWebSolutions\Framework\Helpers\DataTypes\Strings;
 use DeepWebSolutions\Framework\Helpers\WordPress\Users;
 use DeepWebSolutions\Framework\Settings\SettingsAdapterInterface;
@@ -111,9 +112,7 @@ class WC_Adapter implements SettingsAdapterInterface {
 					return $settings;
 				}
 
-				if ( \is_callable( $fields ) ) {
-					$fields = \call_user_func_array( $fields, $params['args'] ?? array() );
-				}
+				$fields = Callables::maybe_resolve( $fields, $params['args'] ?? array() );
 
 				if ( ! empty( $fields ) && \is_array( $fields ) ) {
 					\array_walk(
