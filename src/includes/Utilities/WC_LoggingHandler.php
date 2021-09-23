@@ -36,7 +36,7 @@ class WC_LoggingHandler extends \WC_Logger implements LoggingHandlerInterface, P
 	 *
 	 * @see     WC_LoggingHandler::__construct()
 	 */
-	public function __construct( string $handler_id, $handlers = null, $threshold = null ) {
+	public function __construct( string $handler_id, $handlers = null, ?string $threshold = null ) {
 		$this->storable_id = $handler_id;
 		parent::__construct( $handlers, $threshold );
 	}
