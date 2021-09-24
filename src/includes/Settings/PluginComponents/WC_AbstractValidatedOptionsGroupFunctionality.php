@@ -87,7 +87,7 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 		$settings_service->register_options_group(
 			$this->get_group_id(),
 			array( $this, 'get_group_title' ),
-			array( $this, 'get_group_fields' ),
+			array( $this, fn() => \apply_filters( $this->get_hook_tag( 'get_group_fields' ), $this->get_group_fields() ) ),
 			$options_section->get_section_parent_slug(),
 			array( 'section' => $options_section->get_page_slug() ),
 			'woocommerce'
@@ -104,13 +104,9 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @param   array   $fields     Child class can call the parent method in order to apply the filter on the passed the fields.
-	 *
 	 * @return  array[]
 	 */
-	public function get_group_fields( array $fields = array() ): array {
-		return \apply_filters( $this->get_hook_tag( 'get_group_fields' ), $fields );
-	}
+	abstract public function get_group_fields(): array;
 
 	// endregion
 
