@@ -96,22 +96,6 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 
 	// endregion
 
-	// region METHODS
-
-	/**
-	 * Returns the options fields' definition.
-	 *
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @return  array[]
-	 */
-	public function get_group_fields(): array {
-		return \apply_filters( $this->get_hook_tag( 'get_group_fields' ), $this->get_group_fields_helper() );
-	}
-
-	// endregion
-
 	// region HOOKS
 
 	/**
@@ -127,20 +111,6 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 	public function handle_conditional_logic( array $options ): array {
 		return $options;
 	}
-
-	// endregion
-
-	// region HELPERS
-
-	/**
-	 * Child classes should return their fields definitions here.
-	 *
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @return  array[]
-	 */
-	abstract protected function get_group_fields_helper(): array;
 
 	// endregion
 }
