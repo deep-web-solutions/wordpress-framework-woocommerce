@@ -22,6 +22,9 @@ abstract class WC_AbstractValidatedOptionsTabFunctionality extends AbstractValid
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
 	 */
 	protected function register_options_page( SettingsService $settings_service ) {
 		$settings_service->register_menu_page(

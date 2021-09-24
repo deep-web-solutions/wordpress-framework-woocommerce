@@ -24,14 +24,20 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
 	 */
 	public function get_parent(): ?WC_AbstractValidatedOptionsSectionFunctionality {
 		/* @noinspection PhpIncompatibleReturnTypeInspection */
-		return $this->get_parent_node_trait();
+		return $this->parent;
 	}
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
 	 */
 	public function get_option_value( string $field_id ) {
 		return $this->get_option_value_trait( $field_id, $this->get_group_id(), array( 'default' => null ), 'woocommerce' );
@@ -39,6 +45,9 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
 	 */
 	public function update_option_value( string $field_id, $value, ?bool $autoload = null ) {
 		return $this->update_option_value_trait( $field_id, $value, $this->get_group_id(), array( 'autoload' => $autoload ), 'woocommerce' );
@@ -46,6 +55,9 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
 	 */
 	public function delete_option_value( string $field_id ) {
 		return $this->get_settings_service()->delete_option_value( $field_id, $this->get_group_id(), array(), 'woocommerce' );
@@ -53,6 +65,9 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
 	 */
 	public function register_hooks( HooksService $hooks_service ): void {
 		parent::register_hooks( $hooks_service );
@@ -62,6 +77,9 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
 	 *
 	 * @noinspection PhpParameterNameChangedDuringInheritanceInspection
 	 */
