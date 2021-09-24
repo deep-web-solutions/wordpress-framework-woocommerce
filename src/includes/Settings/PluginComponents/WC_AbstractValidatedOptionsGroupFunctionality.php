@@ -20,6 +20,25 @@ use DeepWebSolutions\Framework\Utilities\Hooks\HooksService;
  * @package DeepWebSolutions\WP-Framework\WooCommerce\Settings\PluginComponents
  */
 abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractValidatedOptionsGroupFunctionality {
+	// region MAGIC METHODS
+
+	/**
+	 * Runs the return value of the 'get_group_fields' method through a filter if the method is not public.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
+	 * @param   string  $name       The name of the method being invoked.
+	 * @param   array   $arguments  The arguments passed on.
+	 */
+	public function __call( string $name, array $arguments ) {
+		if ( 'get_group_fields' === $name ) {
+			return \apply_filters( $this->get_hook_tag( 'get_group_fields' ), $this->get_group_fields(), ...$arguments );
+		}
+	}
+
+	// endregion
+
 	// region INHERITED METHODS
 
 	/**
@@ -87,7 +106,7 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 		$settings_service->register_options_group(
 			$this->get_group_id(),
 			array( $this, 'get_group_title' ),
-			array( $this, fn() => \apply_filters( $this->get_hook_tag( 'get_group_fields' ), $this->get_group_fields() ) ),
+			array( $this, 'get_group_fields' ),
 			$options_section->get_section_parent_slug(),
 			array( 'section' => $options_section->get_page_slug() ),
 			'woocommerce'
@@ -99,14 +118,14 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 	// region METHODS
 
 	/**
-	 * Returns the options fields' definition.
+	 * Returns the options fields' definition. Leave protected for the return value to be run through a filter.
 	 *
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
 	 * @return  array[]
 	 */
-	abstract public function get_group_fields(): array;
+	abstract protected function get_group_fields(): array;
 
 	// endregion
 
