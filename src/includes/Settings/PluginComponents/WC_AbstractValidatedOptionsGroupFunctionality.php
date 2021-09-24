@@ -20,25 +20,6 @@ use DeepWebSolutions\Framework\Utilities\Hooks\HooksService;
  * @package DeepWebSolutions\WP-Framework\WooCommerce\Settings\PluginComponents
  */
 abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractValidatedOptionsGroupFunctionality {
-	// region MAGIC METHODS
-
-	/**
-	 * Runs the return value of the 'get_group_fields' method through a filter if the method is not public.
-	 *
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @param   string  $name       The name of the method being invoked.
-	 * @param   array   $arguments  The arguments passed on.
-	 */
-	public function __call( string $name, array $arguments ) {
-		if ( 'get_group_fields' === $name ) {
-			return \apply_filters( $this->get_hook_tag( 'get_group_fields' ), $this->get_group_fields(), ...$arguments );
-		}
-	}
-
-	// endregion
-
 	// region INHERITED METHODS
 
 	/**
@@ -118,14 +99,16 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 	// region METHODS
 
 	/**
-	 * Returns the options fields' definition. Leave protected for the return value to be run through a filter.
+	 * Returns the options fields' definition.
 	 *
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
 	 * @return  array[]
 	 */
-	abstract protected function get_group_fields(): array;
+	public function get_group_fields(): array {
+		return \apply_filters( $this->get_hook_tag( 'get_group_fields' ), $this->get_group_fields_helper() );
+	}
 
 	// endregion
 
@@ -139,11 +122,25 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 	 *
 	 * @param   array   $options    Registered options fields.
 	 *
-	 * @return  array
+	 * @return  array[]
 	 */
 	public function handle_conditional_logic( array $options ): array {
 		return $options;
 	}
+
+	// endregion
+
+	// region HELPERS
+
+	/**
+	 * Child classes should return their fields definitions here.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
+	 * @return  array[]
+	 */
+	abstract protected function get_group_fields_helper(): array;
 
 	// endregion
 }
