@@ -73,22 +73,48 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 	 * @noinspection PhpParameterNameChangedDuringInheritanceInspection
 	 */
 	protected function register_options_group( SettingsService $settings_service, AbstractOptionsPageFunctionality $options_section ) {
-		$page    = $options_section->get_page_slug();
-		$section = '';
-
-		if ( $options_section instanceof WC_AbstractValidatedOptionsSectionFunctionality ) {
-			$section = $page;
-			$page    = $options_section->get_section_parent_slug();
-		}
-
 		$settings_service->register_options_group(
 			$this->get_group_id(),
 			array( $this, 'get_group_title' ),
 			array( $this, 'get_group_fields' ),
-			$page,
-			array( 'section' => $section ),
+			$this->get_section_parent_slug( $options_section ),
+			array( 'section' => $this->get_section_slug( $options_section ) ),
 			'woocommerce'
 		);
+	}
+
+	// endregion
+
+	// region METHODS
+
+	/**
+	 * Returns the WC tab slug to output the group on.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
+	 * @param   AbstractOptionsPageFunctionality    $options_section    Either a WC options tab or section object.
+	 *
+	 * @return  string
+	 */
+	public function get_section_parent_slug( AbstractOptionsPageFunctionality $options_section ): string {
+		return ( $options_section instanceof WC_AbstractValidatedOptionsSectionFunctionality )
+			? $options_section->get_section_parent_slug() : $options_section->get_page_slug();
+	}
+
+	/**
+	 * Returns the WC section slug to output the group on.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
+	 * @param   AbstractOptionsPageFunctionality    $options_section    Either a WC options tab or section object.
+	 *
+	 * @return  string
+	 */
+	public function get_section_slug( AbstractOptionsPageFunctionality $options_section ): string {
+		return ( $options_section instanceof WC_AbstractValidatedOptionsSectionFunctionality )
+			? $options_section->get_page_slug() : '';
 	}
 
 	// endregion
