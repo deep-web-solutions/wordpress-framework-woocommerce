@@ -28,17 +28,6 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 */
-	public function get_parent(): ?WC_AbstractValidatedOptionsSectionFunctionality {
-		/* @noinspection PhpIncompatibleReturnTypeInspection */
-		return $this->parent;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 */
 	public function get_option_value( string $field_id ) {
 		return $this->get_option_value_trait( $field_id, $this->get_group_id(), array( 'default' => null ), 'woocommerce' );
 	}
@@ -84,12 +73,20 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 	 * @noinspection PhpParameterNameChangedDuringInheritanceInspection
 	 */
 	protected function register_options_group( SettingsService $settings_service, AbstractOptionsPageFunctionality $options_section ) {
+		$page    = $options_section->get_page_slug();
+		$section = '';
+
+		if ( $options_section instanceof WC_AbstractValidatedOptionsSectionFunctionality ) {
+			$section = $page;
+			$page    = $options_section->get_section_parent_slug();
+		}
+
 		$settings_service->register_options_group(
 			$this->get_group_id(),
 			array( $this, 'get_group_title' ),
 			array( $this, 'get_group_fields' ),
-			$options_section->get_section_parent_slug(),
-			array( 'section' => $options_section->get_page_slug() ),
+			$page,
+			array( 'section' => $section ),
 			'woocommerce'
 		);
 	}
