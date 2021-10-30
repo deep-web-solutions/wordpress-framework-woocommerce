@@ -1,6 +1,6 @@
 <?php
 
-namespace DeepWebSolutions\Framework\WooCommerce\Settings\Models;
+namespace DeepWebSolutions\Framework\WooCommerce\Settings;
 
 \defined( 'ABSPATH' ) || exit;
 
@@ -11,7 +11,7 @@ namespace DeepWebSolutions\Framework\WooCommerce\Settings\Models;
  * @since   1.0.0
  * @version 1.0.0
  * @author  Antonius Hegyes <a.hegyes@deep-web-solutions.com>
- * @package DeepWebSolutions\WP-Framework\WooCommerce\Settings\Models
+ * @package DeepWebSolutions\WP-Framework\WooCommerce\Settings
  */
 class WC_Settings_Page extends \WC_Settings_Page {
 	// region MAGIC METHODS

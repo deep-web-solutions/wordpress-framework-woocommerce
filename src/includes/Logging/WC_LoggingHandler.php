@@ -1,11 +1,11 @@
 <?php
 
-namespace DeepWebSolutions\Framework\WooCommerce\Utilities;
+namespace DeepWebSolutions\Framework\WooCommerce\Logging;
 
 use DeepWebSolutions\Framework\Foundations\Logging\LoggingHandlerInterface;
-use DeepWebSolutions\Framework\Foundations\Plugin\PluginAwareInterface;
-use DeepWebSolutions\Framework\Foundations\Plugin\PluginAwareTrait;
-use DeepWebSolutions\Framework\Foundations\Utilities\Storage\StorableTrait;
+use DeepWebSolutions\Framework\Foundations\PluginAwareInterface;
+use DeepWebSolutions\Framework\Foundations\PluginAwareTrait;
+use DeepWebSolutions\Framework\Foundations\Storage\StorableTrait;
 
 \defined( 'ABSPATH' ) || exit;
 
@@ -46,33 +46,23 @@ class WC_LoggingHandler extends \WC_Logger implements LoggingHandlerInterface, P
 	// region INHERITED METHODS
 
 	/**
-	 * Returns the type of the handler.
+	 * {@inheritDoc}
 	 *
 	 * @since   1.0.0
 	 * @version 1.0.0
-	 *
-	 * @return  string
 	 */
 	public function get_type(): string {
 		return 'wc-logging';
 	}
 
 	/**
-	 * Sets the context source to the plugin's slug automatically.
+	 * {@inheritDoc}
 	 *
 	 * @since   1.0.0
 	 * @version 1.0.0
-	 *
-	 * @noinspection PhpDocSignatureInspection
-	 *
-	 * @param   string  $level      A PSR-3 compliant log level.
-	 * @param   string  $message    Log message.
-	 * @param   array   $context    Additional information for log handlers.
-	 *
-	 * @see     WC_LoggingHandler::log()
 	 */
 	public function log( $level, $message, $context = array() ) {
-		$context['source'] = $this->get_plugin()->get_plugin_slug() . '.' . $this->get_id();
+		$context['source'] = "{$this->get_plugin()->get_plugin_slug()}/{$this->get_id()}";
 		parent::log( $level, $message, $context );
 	}
 
