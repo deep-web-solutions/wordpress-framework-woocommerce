@@ -5,7 +5,7 @@ module.exports = function( grunt ) {
 	require( 'load-grunt-tasks' )( grunt );
 
 	// Show elapsed time
-	require( 'time-grunt' )( grunt );
+	require( '@lodder/time-grunt' )( grunt );
 
 	// Project configuration
 	grunt.initConfig(
@@ -16,26 +16,21 @@ module.exports = function( grunt ) {
 				readme_md     : {
 					src 	     : [ 'README.md' ],
 					overwrite    : true,
-					replacements : [
-						{
-							from : /\*\*Stable tag:\*\* (.*)/,
-							to   : "**Stable tag:** <%= package.version %>  "
-						}
-					]
+					replacements : [ {
+						from : /\*\*Stable tag:\*\* (.*)/,
+						to   : "**Stable tag:** <%= package.version %>  "
+					} ]
 				},
 				bootstrap_php : {
 					src 		 : [ 'bootstrap.php' ],
 					overwrite 	 : true,
-					replacements : [
-						{
-							from : /Version:(\s*)(.*)/,
-							to   : "Version:$1<%= package.version %>"
-						},
-						{
-							from : /define\( __NAMESPACE__ \. '\\DWS_WP_FRAMEWORK_WOOCOMMERCE_VERSION', '(.*)' \);/,
-							to   : "define( __NAMESPACE__ . '\\DWS_WP_FRAMEWORK_WOOCOMMERCE_VERSION', '<%= package.version %>' );"
-						}
-					]
+					replacements : [ {
+						from : /Version:(\s*)(.*)/,
+						to   : "Version:$1<%= package.version %>"
+					}, {
+						from : /define\( __NAMESPACE__ \. '\\DWS_WP_FRAMEWORK_WOOCOMMERCE_VERSION', '(.*)' \);/,
+						to   : "define( __NAMESPACE__ . '\\DWS_WP_FRAMEWORK_WOOCOMMERCE_VERSION', '<%= package.version %>' );"
+					} ]
 				}
 			}
 		}
