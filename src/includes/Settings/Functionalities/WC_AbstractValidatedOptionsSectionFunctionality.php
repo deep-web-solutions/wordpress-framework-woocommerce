@@ -1,9 +1,9 @@
 <?php
 
-namespace DeepWebSolutions\Framework\WooCommerce\Settings\PluginComponents;
+namespace DeepWebSolutions\Framework\WooCommerce\Settings\Functionalities;
 
 use DeepWebSolutions\Framework\Foundations\Exceptions\NotImplementedException;
-use DeepWebSolutions\Framework\Settings\PluginComponents\AbstractValidatedOptionsPageFunctionality;
+use DeepWebSolutions\Framework\Settings\Functionalities\AbstractValidatedOptionsPageFunctionality;
 use DeepWebSolutions\Framework\Settings\SettingsService;
 
 \defined( 'ABSPATH' ) || exit;
@@ -16,7 +16,7 @@ use DeepWebSolutions\Framework\Settings\SettingsService;
  * @since   1.0.0
  * @version 1.0.0
  * @author  Antonius Hegyes <a.hegyes@deep-web-solutions.com>
- * @package DeepWebSolutions\WP-Framework\WooCommerce\Settings\PluginComponents
+ * @package DeepWebSolutions\WP-Framework\WooCommerce\Settings\Functionalities
  */
 abstract class WC_AbstractValidatedOptionsSectionFunctionality extends AbstractValidatedOptionsPageFunctionality {
 	// region INHERITED METHODS
@@ -28,14 +28,11 @@ abstract class WC_AbstractValidatedOptionsSectionFunctionality extends AbstractV
 	 * @version 1.0.0
 	 */
 	protected function register_options_page( SettingsService $settings_service ) {
-		$settings_service->register_submenu_page(
-			$this->get_section_parent_slug(),
+		$settings_service->get_handler( 'woocommerce' )->register_submenu_page(
+			$this->get_tab_slug(),
 			'',
 			array( $this, 'get_page_title' ),
-			$this->get_page_slug(),
-			'manage_woocommerce',
-			array(),
-			'woocommerce'
+			$this->get_page_slug()
 		);
 	}
 
@@ -44,7 +41,7 @@ abstract class WC_AbstractValidatedOptionsSectionFunctionality extends AbstractV
 	// region METHODS
 
 	/**
-	 * Returns the section's parent slug.
+	 * Returns the section's parent, i.e. tab, slug.
 	 *
 	 * @since   1.0.0
 	 * @version 1.0.0
@@ -53,7 +50,7 @@ abstract class WC_AbstractValidatedOptionsSectionFunctionality extends AbstractV
 	 *
 	 * @return  string
 	 */
-	public function get_section_parent_slug(): string {
+	public function get_tab_slug(): string {
 		$parent = $this->get_parent();
 		if ( \is_a( $parent, WC_AbstractValidatedOptionsTabFunctionality::class ) ) {
 			return $parent->get_page_slug();

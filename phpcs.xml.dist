@@ -62,6 +62,10 @@
     <rule ref="WooCommerce">
         <!-- Allow the usage of @author tags. -->
         <exclude name="WooCommerce.Commenting.CommentTags.AuthorTag"/>
+        <!-- Allow the usage of @copyright tags. -->
+        <exclude name="WooCommerce.Commenting.CommentTags.CopyrightTag"/>
+        <!-- Allow the usage of @license tags. -->
+        <exclude name="WooCommerce.Commenting.CommentTags.LicenseTag"/>
     </rule>
 
     <!-- Define some special rules for the Codeception tests. -->

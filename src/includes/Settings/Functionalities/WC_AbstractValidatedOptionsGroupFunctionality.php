@@ -1,9 +1,9 @@
 <?php
 
-namespace DeepWebSolutions\Framework\WooCommerce\Settings\PluginComponents;
+namespace DeepWebSolutions\Framework\WooCommerce\Settings\Functionalities;
 
-use DeepWebSolutions\Framework\Settings\PluginComponents\AbstractOptionsPageFunctionality;
-use DeepWebSolutions\Framework\Settings\PluginComponents\AbstractValidatedOptionsGroupFunctionality;
+use DeepWebSolutions\Framework\Settings\Functionalities\AbstractOptionsPageFunctionality;
+use DeepWebSolutions\Framework\Settings\Functionalities\AbstractValidatedOptionsGroupFunctionality;
 use DeepWebSolutions\Framework\Settings\SettingsService;
 use DeepWebSolutions\Framework\Utilities\Hooks\HooksService;
 
@@ -17,7 +17,7 @@ use DeepWebSolutions\Framework\Utilities\Hooks\HooksService;
  * @since   1.0.0
  * @version 1.0.0
  * @author  Antonius Hegyes <a.hegyes@deep-web-solutions.com>
- * @package DeepWebSolutions\WP-Framework\WooCommerce\Settings\PluginComponents
+ * @package DeepWebSolutions\WP-Framework\WooCommerce\Settings\Functionalities
  */
 abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractValidatedOptionsGroupFunctionality {
 	// region INHERITED METHODS
@@ -61,7 +61,7 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 	public function register_hooks( HooksService $hooks_service ): void {
 		parent::register_hooks( $hooks_service );
 
-		$hooks_service->add_filter( $this->get_hook_tag( 'get_group_fields' ), $this, 'handle_conditional_logic', 999, 1, 'internal' );
+		$hooks_service->add_filter( $this->get_hook_tag( 'get_group_fields' ), $this, 'handle_conditional_logic', 999, 1, 'direct' );
 	}
 
 	/**
@@ -77,7 +77,7 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 			$this->get_group_id(),
 			array( $this, 'get_group_title' ),
 			array( $this, 'get_group_fields' ),
-			$this->get_section_parent_slug( $options_section ),
+			$this->get_tab_slug( $options_section ),
 			array( 'section' => $this->get_section_slug( $options_section ) ),
 			'woocommerce'
 		);
@@ -97,9 +97,9 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 	 *
 	 * @return  string
 	 */
-	public function get_section_parent_slug( AbstractOptionsPageFunctionality $options_section ): string {
+	public function get_tab_slug( AbstractOptionsPageFunctionality $options_section ): string {
 		return ( $options_section instanceof WC_AbstractValidatedOptionsSectionFunctionality )
-			? $options_section->get_section_parent_slug() : $options_section->get_page_slug();
+			? $options_section->get_tab_slug() : $options_section->get_page_slug();
 	}
 
 	/**

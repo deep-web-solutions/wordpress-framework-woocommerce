@@ -1,8 +1,8 @@
 <?php
 
-namespace DeepWebSolutions\Framework\WooCommerce\Settings\PluginComponents;
+namespace DeepWebSolutions\Framework\WooCommerce\Settings\Functionalities;
 
-use DeepWebSolutions\Framework\Settings\PluginComponents\AbstractValidatedOptionsPageFunctionality;
+use DeepWebSolutions\Framework\Settings\Functionalities\AbstractValidatedOptionsPageFunctionality;
 use DeepWebSolutions\Framework\Settings\SettingsService;
 
 \defined( 'ABSPATH' ) || exit;
@@ -15,7 +15,7 @@ use DeepWebSolutions\Framework\Settings\SettingsService;
  * @since   1.0.0
  * @version 1.0.0
  * @author  Antonius Hegyes <a.hegyes@deep-web-solutions.com>
- * @package DeepWebSolutions\WP-Framework\WooCommerce\Settings\PluginComponents
+ * @package DeepWebSolutions\WP-Framework\WooCommerce\Settings\Functionalities
  */
 abstract class WC_AbstractValidatedOptionsTabFunctionality extends AbstractValidatedOptionsPageFunctionality {
 	// region INHERITED METHODS
@@ -27,13 +27,10 @@ abstract class WC_AbstractValidatedOptionsTabFunctionality extends AbstractValid
 	 * @version 1.0.0
 	 */
 	protected function register_options_page( SettingsService $settings_service ) {
-		$settings_service->register_menu_page(
+		$settings_service->get_handler( 'woocommerce' )->register_menu_page(
 			'',
 			array( $this, 'get_page_title' ),
-			$this->get_page_slug(),
-			'manage_woocommerce',
-			array(),
-			'woocommerce'
+			$this->get_page_slug()
 		);
 	}
 
