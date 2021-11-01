@@ -13,7 +13,7 @@ namespace DeepWebSolutions\Framework\WooCommerce\Settings;
  * @author  Antonius Hegyes <a.hegyes@deep-web-solutions.com>
  * @package DeepWebSolutions\WP-Framework\WooCommerce\Settings
  */
-class WC_Settings_Page extends \WC_Settings_Page {
+class WC_SettingsPage extends \WC_Settings_Page {
 	// region MAGIC METHODS
 
 	/**

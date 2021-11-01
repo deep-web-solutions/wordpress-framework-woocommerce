@@ -19,7 +19,7 @@ use DeepWebSolutions\Framework\Settings\SettingsAdapterInterface;
  * @author  Antonius Hegyes <a.hegyes@deep-web-solutions.com>
  * @package DeepWebSolutions\WP-Framework\WooCommerce\Settings
  */
-class WC_Adapter implements SettingsAdapterInterface {
+class WC_SettingsAdapter implements SettingsAdapterInterface {
 	// region CREATE
 
 	/**
@@ -39,7 +39,7 @@ class WC_Adapter implements SettingsAdapterInterface {
 		return \add_filter(
 			'woocommerce_get_settings_pages',
 			function( $settings ) use ( $menu_slug, $menu_title ) {
-				$settings[] = new WC_Settings_Page( $menu_slug, Strings::resolve( $menu_title ) );
+				$settings[] = new WC_SettingsPage( $menu_slug, Strings::resolve( $menu_title ) );
 				return $settings;
 			}
 		);
