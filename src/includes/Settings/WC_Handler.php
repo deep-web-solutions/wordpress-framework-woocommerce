@@ -52,12 +52,9 @@ class WC_Handler extends AbstractSettingsHandler {
 	 *
 	 * @since   1.0.0
 	 * @version 1.0.0
-	 *
-	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-	 * @noinspection PhpParameterNameChangedDuringInheritanceInspection
 	 */
-	public function register_menu_page( $unused, $menu_title, string $menu_slug, string $capability = 'manage_woocommerce', array $params = array() ) { // phpcs:ignore Generic.CodeAnalysis.UselessOverridingMethod.Found
-		return parent::register_menu_page( $unused, $menu_title, $menu_slug, $capability, $params );
+	public function register_menu_page( $page_title, $menu_title, string $menu_slug, string $capability = 'manage_woocommerce', array $params = array() ) { // phpcs:ignore Generic.CodeAnalysis.UselessOverridingMethod.Found
+		return parent::register_menu_page( $page_title, $menu_title, $menu_slug, $capability, $params );
 	}
 
 	/**
@@ -65,12 +62,9 @@ class WC_Handler extends AbstractSettingsHandler {
 	 *
 	 * @since   1.0.0
 	 * @version 1.0.0
-	 *
-	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-	 * @noinspection PhpParameterNameChangedDuringInheritanceInspection
 	 */
-	public function register_submenu_page( string $parent_slug, $unused, $menu_title, string $menu_slug, string $capability = 'manage_woocommerce', array $params = array() ): bool { // phpcs:ignore Generic.CodeAnalysis.UselessOverridingMethod.Found
-		return parent::register_submenu_page( $parent_slug, $unused, $menu_title, $menu_slug, $capability, $params );
+	public function register_submenu_page( string $parent_slug, $page_title, $menu_title, string $menu_slug, string $capability = 'manage_woocommerce', array $params = array() ): bool { // phpcs:ignore Generic.CodeAnalysis.UselessOverridingMethod.Found
+		return parent::register_submenu_page( $parent_slug, $page_title, $menu_title, $menu_slug, $capability, $params );
 	}
 
 	// endregion
