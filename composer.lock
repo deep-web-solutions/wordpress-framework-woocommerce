@@ -1658,12 +1658,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/deep-web-solutions/wordpress-framework-settings.git",
-                "reference": "2acde4738d73dcaa49a47d855c14ec88fa86c7ee"
+                "reference": "016a40772acb9ac7bc13f30fd9fee3833ccc31bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deep-web-solutions/wordpress-framework-settings/zipball/2acde4738d73dcaa49a47d855c14ec88fa86c7ee",
-                "reference": "2acde4738d73dcaa49a47d855c14ec88fa86c7ee",
+                "url": "https://api.github.com/repos/deep-web-solutions/wordpress-framework-settings/zipball/016a40772acb9ac7bc13f30fd9fee3833ccc31bc",
+                "reference": "016a40772acb9ac7bc13f30fd9fee3833ccc31bc",
                 "shasum": ""
             },
             "require": {
@@ -1741,7 +1741,7 @@
                 "issues": "https://github.com/deep-web-solutions/wordpress-framework-settings/issues",
                 "source": "https://github.com/deep-web-solutions/wordpress-framework-settings/tree/master"
             },
-            "time": "2021-11-01T13:59:40+00:00"
+            "time": "2021-11-01T14:17:29+00:00"
         },
         {
             "name": "deep-web-solutions/wp-framework-utilities",
