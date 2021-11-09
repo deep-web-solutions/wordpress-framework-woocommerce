@@ -78,8 +78,9 @@ class WC_SettingsAdapter implements SettingsAdapterInterface {
 
 		return \add_filter(
 			"woocommerce_get_settings_$page",
-			function( $settings ) use ( $group_id, $group_title, $fields, $params ) {
-				if ( ( $params['section'] ?? '' ) !== $GLOBALS['current_section'] ) {
+			function( array $settings, ?string $section_id = null ) use ( $group_id, $group_title, $fields, $params ) {
+				$section_id = $section_id ?? $GLOBALS['current_section'] ?? null;
+				if ( ( $params['section'] ?? '' ) !== $section_id ) {
 					return $settings;
 				}
 
@@ -110,7 +111,8 @@ class WC_SettingsAdapter implements SettingsAdapterInterface {
 
 				return $settings;
 			},
-			10
+			10,
+			2
 		);
 	}
 
