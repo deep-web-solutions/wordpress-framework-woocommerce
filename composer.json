@@ -30,7 +30,7 @@
   ],
   "require": {
     "deep-web-solutions/wp-framework-bootstrapper": "^1.2.0",
-    "deep-web-solutions/wp-framework-helpers": "^1.5.2",
+    "deep-web-solutions/wp-framework-helpers": "^1.5.4",
     "deep-web-solutions/wp-framework-foundations": "^1.5.4"
   },
   "require-dev": {
@@ -61,7 +61,7 @@
     "codeception/module-cli": "^1.1",
     "codeception/util-universalframework": "^1.0",
     "hoa/console": "^3.17",
-    "vlucas/phpdotenv": "^5.3"
+    "vlucas/phpdotenv": "^5.4"
   },
 
   "autoload": {

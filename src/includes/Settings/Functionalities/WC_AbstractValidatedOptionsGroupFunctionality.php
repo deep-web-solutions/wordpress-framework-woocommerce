@@ -73,6 +73,15 @@ abstract class WC_AbstractValidatedOptionsGroupFunctionality extends AbstractVal
 	 * @noinspection PhpParameterNameChangedDuringInheritanceInspection
 	 */
 	protected function register_options_group( SettingsService $settings_service, AbstractOptionsPageFunctionality $options_section ) {
+		if ( $options_section instanceof WC_AbstractValidatedOptionsTabFunctionality ) {
+			$settings_service->get_handler( 'woocommerce' )->register_submenu_page(
+				$this->get_tab_slug( $options_section ),
+				'',
+				array( $this, 'get_group_title' ),
+				$this->get_section_slug( $options_section )
+			);
+		}
+
 		$settings_service->register_options_group(
 			$this->get_group_id(),
 			array( $this, 'get_group_title' ),
