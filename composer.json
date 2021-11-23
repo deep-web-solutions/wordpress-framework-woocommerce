@@ -30,8 +30,8 @@
   ],
   "require": {
     "deep-web-solutions/wp-framework-bootstrapper": "^1.2.0",
-    "deep-web-solutions/wp-framework-helpers": "^1.5.4",
-    "deep-web-solutions/wp-framework-foundations": "^1.5.4"
+    "deep-web-solutions/wp-framework-helpers": "^1.5.5",
+    "deep-web-solutions/wp-framework-foundations": "^1.6.0"
   },
   "require-dev": {
     "wpackagist-plugin/woocommerce": "4.5.*",
