@@ -1,7 +1,10 @@
 {
     "classes": [
         "WC_Logger",
-        "WC_Settings_Page"
+        "WC_Settings_Page",
+        "WC_Product"
     ],
-    "functions": []
+    "functions": [
+        "wc_get_product"
+    ]
 }
