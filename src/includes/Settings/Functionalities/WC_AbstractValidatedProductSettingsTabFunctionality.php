@@ -443,8 +443,8 @@ abstract class WC_AbstractValidatedProductSettingsTabFunctionality extends Abstr
 	 * @return  bool|null
 	 */
 	protected function is_supported_product( int $product_id ): ?bool {
-		$product = \wc_get_product( $product_id );
-		if ( empty( $product ) ) {
+		$product_type = \WC_Product_Factory::get_product_type( $product_id );
+		if ( false === $product_type ) {
 			return null;
 		}
 
