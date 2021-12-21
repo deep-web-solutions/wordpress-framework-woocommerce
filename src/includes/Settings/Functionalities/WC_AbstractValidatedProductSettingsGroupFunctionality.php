@@ -285,7 +285,12 @@ abstract class WC_AbstractValidatedProductSettingsGroupFunctionality extends Abs
 	 * @return  array
 	 */
 	public function get_group_classes(): array {
-		return array();
+		return array(
+			Strings::to_safe_string(
+				Strings::maybe_unprefix( "{$this->get_group_id()}_options_group" ),
+				array( '-' => '_' )
+			),
+		);
 	}
 
 	/**

@@ -288,7 +288,7 @@ abstract class WC_AbstractValidatedProductSettingsTabFunctionality extends Abstr
 					<?php if ( $child instanceof WC_AbstractValidatedProductSettingsGroupFunctionality && true === $child->is_supported_product( $product_object->get_id() ) ) : ?>
 						<?php \do_action( $this->get_hook_tag( 'panel', array( 'before_options_group', $child->get_group_name() ) ) ); ?>
 
-						<div class="options_group <?php echo \esc_attr( \join( ' ', array( \sanitize_html_class( "{$child->get_group_id()}_options_group" ) ) + $child->get_group_classes() ) ); ?>">
+						<div class="options_group <?php echo \esc_attr( \join( ' ', $child->get_group_classes() ) ); ?>">
 							<?php
 							foreach ( $child->get_group_fields() as $field_id => $field ) {
 								switch ( $field['type'] ?? 'text' ) {
