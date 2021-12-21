@@ -8,7 +8,6 @@
         "__",
         "esc_attr",
         "do_action",
-        "sanitize_html_class",
         "wp_parse_args",
         "get_option",
         "update_option",

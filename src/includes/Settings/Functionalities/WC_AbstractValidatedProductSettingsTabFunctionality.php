@@ -5,6 +5,7 @@ namespace DeepWebSolutions\Framework\WooCommerce\Settings\Functionalities;
 use DeepWebSolutions\Framework\Core\AbstractPluginFunctionality;
 use DeepWebSolutions\Framework\Core\Actions\Installable\UninstallFailureException;
 use DeepWebSolutions\Framework\Core\Actions\UninstallableInterface;
+use DeepWebSolutions\Framework\Helpers\DataTypes\Strings;
 use DeepWebSolutions\Framework\Utilities\Hooks\Actions\SetupHooksTrait;
 use DeepWebSolutions\Framework\Utilities\Hooks\HooksService;
 
@@ -291,24 +292,30 @@ abstract class WC_AbstractValidatedProductSettingsTabFunctionality extends Abstr
 						<div class="options_group <?php echo \esc_attr( \join( ' ', $child->get_group_classes() ) ); ?>">
 							<?php
 							foreach ( $child->get_group_fields() as $field_id => $field ) {
+								$meta_key    = $child->generate_meta_key( $field_id );
+								$field_extra = array(
+									'id'   => Strings::maybe_unprefix( \str_replace( '-', '_', $meta_key ) ),
+									'name' => $meta_key,
+								);
+
 								switch ( $field['type'] ?? 'text' ) {
 									case 'text':
-										\woocommerce_wp_text_input( $field + array( 'id' => $child->generate_meta_key( $field_id ) ) );
+										\woocommerce_wp_text_input( $field + $field_extra );
 										break;
 									case 'textarea':
-										\woocommerce_wp_textarea_input( $field + array( 'id' => $child->generate_meta_key( $field_id ) ) );
+										\woocommerce_wp_textarea_input( $field + $field_extra );
 										break;
 									case 'select':
-										\woocommerce_wp_select( $field + array( 'id' => $child->generate_meta_key( $field_id ) ) );
+										\woocommerce_wp_select( $field + $field_extra );
 										break;
 									case 'radio':
-										\woocommerce_wp_radio( $field + array( 'id' => $child->generate_meta_key( $field_id ) ) );
+										\woocommerce_wp_radio( $field + $field_extra );
 										break;
 									case 'checkbox':
-										\woocommerce_wp_checkbox( $field + array( 'id' => $child->generate_meta_key( $field_id ) ) );
+										\woocommerce_wp_checkbox( $field + $field_extra );
 										break;
 									case 'hidden':
-										\woocommerce_wp_hidden_input( $field + array( 'id' => $child->generate_meta_key( $field_id ) ) );
+										\woocommerce_wp_hidden_input( $field + $field_extra );
 										break;
 									default:
 										\do_action( $this->get_hook_tag( 'panel', array( 'output_field', $field['type'] ) ), $field, $field_id );
