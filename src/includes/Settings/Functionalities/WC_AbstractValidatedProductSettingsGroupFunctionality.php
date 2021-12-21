@@ -269,6 +269,7 @@ abstract class WC_AbstractValidatedProductSettingsGroupFunctionality extends Abs
 			array(
 				'_settings' => '',
 				'_options'  => '',
+				'_product'  => '',
 				'_'         => '-',
 			),
 			self::get_safe_name()
