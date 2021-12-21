@@ -308,6 +308,7 @@ abstract class WC_AbstractValidatedProductSettingsTabFunctionality extends Abstr
 										break;
 									/* @noinspection PhpMissingBreakStatementInspection */
 									case 'multiselect':
+										$field_extra['name']             .= '[]';
 										$field_extra['style']             = 'width: 50%;';
 										$field_extra['custom_attributes'] = array( 'multiple' => 'multiple' );
 										// A multi-select is basically a select with some extra attributes.
