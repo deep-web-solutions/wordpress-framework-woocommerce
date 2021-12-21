@@ -306,6 +306,11 @@ abstract class WC_AbstractValidatedProductSettingsTabFunctionality extends Abstr
 									case 'textarea':
 										\woocommerce_wp_textarea_input( $field + $field_extra );
 										break;
+									/* @noinspection PhpMissingBreakStatementInspection */
+									case 'multiselect':
+										$field_extra['style']             = 'width: 50%;';
+										$field_extra['custom_attributes'] = array( 'multiple' => 'multiple' );
+										// A multi-select is basically a select with some extra attributes.
 									case 'select':
 										\woocommerce_wp_select( $field + $field_extra );
 										break;
@@ -351,11 +356,15 @@ abstract class WC_AbstractValidatedProductSettingsTabFunctionality extends Abstr
 			return;
 		}
 
+		$product = \wc_get_product( $product_id );
+
 		foreach ( $this->get_children() as $child ) {
 			if ( $child instanceof WC_AbstractValidatedProductSettingsGroupFunctionality && true === $child->is_supported_product( $product_id ) ) {
-				$child->save_group_fields( $product_id );
+				$child->save_group_fields( $product );
 			}
 		}
+
+		$product->save_meta_data();
 	}
 
 	// endregion

@@ -4,6 +4,7 @@ namespace DeepWebSolutions\Framework\WooCommerce\Settings\Functionalities;
 
 use DeepWebSolutions\Framework\Core\AbstractPluginFunctionality;
 use DeepWebSolutions\Framework\Foundations\Exceptions\InexistentPropertyException;
+use DeepWebSolutions\Framework\Helpers\DataTypes\Arrays;
 use DeepWebSolutions\Framework\Helpers\DataTypes\Strings;
 use DeepWebSolutions\Framework\Utilities\Hooks\Actions\SetupHooksTrait;
 use DeepWebSolutions\Framework\Utilities\Hooks\HooksService;
@@ -348,16 +349,38 @@ abstract class WC_AbstractValidatedProductSettingsGroupFunctionality extends Abs
 	}
 
 	/**
-	 * Children classes should define their field-saving logic in here.
+	 * Attempts to save the request data as product meta. Child classes can override this method to define their field-saving logic in here.
 	 *
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @param   int     $product_id     The ID of the product to save the metadata to.
+	 * @param   \WC_Product     $product    The product object of the product being saved.
 	 *
 	 * @return  void
 	 */
-	abstract public function save_group_fields( int $product_id );
+	public function save_group_fields( \WC_Product $product ) {
+		foreach ( $this->get_group_fields() as $field_id => $field ) {
+			$meta_key = $field['name'] ?? $this->generate_meta_key( $field_id );
+
+			switch ( $field['type'] ?? 'text' ) {
+				case 'text':
+				case 'textarea':
+				case 'select':
+				case 'radio':
+				case 'checkbox':
+				case 'hidden':
+					$value = Strings::maybe_cast_input( INPUT_POST, $meta_key );
+					break;
+				case 'multiselect':
+					$value = Arrays::maybe_cast_input( INPUT_POST, $meta_key );
+					break;
+				default:
+					$value = null;
+			}
+
+			$product->update_meta_data( $meta_key, $this->validate_field_value( $value, $field_id, $product->get_id() ) );
+		}
+	}
 
 	// endregion
 
