@@ -8,6 +8,7 @@
         "__",
         "esc_attr",
         "do_action",
+        "get_post_meta",
         "wp_parse_args",
         "get_option",
         "update_option",
