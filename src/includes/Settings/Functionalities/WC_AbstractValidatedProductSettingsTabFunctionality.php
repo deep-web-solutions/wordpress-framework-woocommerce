@@ -278,7 +278,7 @@ abstract class WC_AbstractValidatedProductSettingsTabFunctionality extends Abstr
 	 * @retrun  void
 	 */
 	public function output_tab_panel(): void {
-		global $product_object;
+		global $product_object, $thepostid;
 
 		if ( $product_object instanceof \WC_Product && true === $this->is_supported_product( $product_object->get_id() ) ) : ?>
 
@@ -294,8 +294,9 @@ abstract class WC_AbstractValidatedProductSettingsTabFunctionality extends Abstr
 							foreach ( $child->get_group_fields() as $field_id => $field ) {
 								$meta_key    = $child->generate_meta_key( $field_id );
 								$field_extra = array(
-									'id'   => Strings::maybe_unprefix( \str_replace( '-', '_', $meta_key ) ),
-									'name' => $meta_key,
+									'id'    => Strings::maybe_unprefix( \str_replace( '-', '_', $meta_key ) ),
+									'name'  => $meta_key,
+									'value' => \get_post_meta( $thepostid, $meta_key, true ),
 								);
 
 								switch ( $field['type'] ?? 'text' ) {
@@ -318,7 +319,7 @@ abstract class WC_AbstractValidatedProductSettingsTabFunctionality extends Abstr
 										\woocommerce_wp_hidden_input( $field + $field_extra );
 										break;
 									default:
-										\do_action( $this->get_hook_tag( 'panel', array( 'output_field', $field['type'] ) ), $field, $field_id );
+										\do_action( $this->get_hook_tag( 'panel', array( 'output_field', $field['type'] ) ), $field_id, $field + $field_extra );
 								}
 							}
 							?>
