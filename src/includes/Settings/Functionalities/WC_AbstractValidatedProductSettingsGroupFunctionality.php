@@ -18,7 +18,6 @@ use DeepWebSolutions\Framework\Utilities\Validation\ValidationServiceAwareTrait;
  *
  * @SuppressWarnings(PHPMD.LongClassName)
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
- * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  *
  * @since   1.0.0
  * @version 1.0.0
@@ -306,19 +305,6 @@ abstract class WC_AbstractValidatedProductSettingsGroupFunctionality extends Abs
 	}
 
 	/**
-	 * Returns a map from this tab's fields to their global settings equivalent, if applicable.
-	 *
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @return  array
-	 */
-	public function get_group_fields_to_global_options_map(): array {
-		$map = $this->get_group_fields_to_global_options_map_helper();
-		return \apply_filters( $this->get_hook_tag( 'get_group_fields_to_global_options_map' ), $map );
-	}
-
-	/**
 	 * Returns the composite key needed to query the database value of a given field.
 	 *
 	 * @since   1.0.0
@@ -588,16 +574,6 @@ abstract class WC_AbstractValidatedProductSettingsGroupFunctionality extends Abs
 	 * @return  array[]
 	 */
 	abstract protected function get_group_fields_helper(): array;
-
-	/**
-	 * Child classes should return their fields' mapping to global settings here.
-	 *
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @return  array
-	 */
-	abstract protected function get_group_fields_to_global_options_map_helper(): array;
 
 	// endregion
 }
