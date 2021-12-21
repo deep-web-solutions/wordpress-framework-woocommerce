@@ -276,6 +276,18 @@ abstract class WC_AbstractValidatedProductSettingsGroupFunctionality extends Abs
 	}
 
 	/**
+	 * Returns any additional CSS classes to output on the product settings group.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
+	 * @return  array
+	 */
+	public function get_group_classes(): array {
+		return array();
+	}
+
+	/**
 	 * Returns the group's fields definition.
 	 *
 	 * @since   1.0.0
@@ -342,18 +354,6 @@ abstract class WC_AbstractValidatedProductSettingsGroupFunctionality extends Abs
 	public function generate_validation_key( string $field_id ): string {
 		return "{$this->get_group_name()}/$field_id";
 	}
-
-	/**
-	 * Children classes should define their field-outputting logic in here.
-	 *
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @param   \WC_Product     $product    The product object of the product being edited.
-	 *
-	 * @return  void
-	 */
-	abstract public function output_group_fields( \WC_Product $product );
 
 	/**
 	 * Children classes should define their field-saving logic in here.

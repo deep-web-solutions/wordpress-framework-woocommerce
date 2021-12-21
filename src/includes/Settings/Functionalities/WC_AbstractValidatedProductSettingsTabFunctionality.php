@@ -272,6 +272,8 @@ abstract class WC_AbstractValidatedProductSettingsTabFunctionality extends Abstr
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
+	 * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+	 *
 	 * @retrun  void
 	 */
 	public function output_tab_panel(): void {
@@ -284,7 +286,38 @@ abstract class WC_AbstractValidatedProductSettingsTabFunctionality extends Abstr
 
 				<?php foreach ( $this->get_children() as $child ) : ?>
 					<?php if ( $child instanceof WC_AbstractValidatedProductSettingsGroupFunctionality && true === $child->is_supported_product( $product_object->get_id() ) ) : ?>
-						<?php $child->output_group_fields( $product_object ); ?>
+						<?php \do_action( $this->get_hook_tag( 'panel', array( 'before_options_group', $child->get_group_name() ) ) ); ?>
+
+						<div class="options_group <?php echo \esc_attr( \join( ' ', array( \sanitize_html_class( "{$child->get_group_id()}_options_group" ) ) + $child->get_group_classes() ) ); ?>">
+							<?php
+							foreach ( $child->get_group_fields() as $field_id => $field ) {
+								switch ( $field['type'] ?? 'text' ) {
+									case 'text':
+										\woocommerce_wp_text_input( $field + array( 'id' => $child->generate_meta_key( $field_id ) ) );
+										break;
+									case 'textarea':
+										\woocommerce_wp_textarea_input( $field + array( 'id' => $child->generate_meta_key( $field_id ) ) );
+										break;
+									case 'select':
+										\woocommerce_wp_select( $field + array( 'id' => $child->generate_meta_key( $field_id ) ) );
+										break;
+									case 'radio':
+										\woocommerce_wp_radio( $field + array( 'id' => $child->generate_meta_key( $field_id ) ) );
+										break;
+									case 'checkbox':
+										\woocommerce_wp_checkbox( $field + array( 'id' => $child->generate_meta_key( $field_id ) ) );
+										break;
+									case 'hidden':
+										\woocommerce_wp_hidden_input( $field + array( 'id' => $child->generate_meta_key( $field_id ) ) );
+										break;
+									default:
+										\do_action( $this->get_hook_tag( 'panel', array( 'output_field', $field['type'] ) ), $field, $field_id );
+								}
+							}
+							?>
+						</div>
+
+						<?php \do_action( $this->get_hook_tag( 'panel', array( 'after_options_group', $child->get_group_name() ) ) ); ?>
 					<?php endif; ?>
 				<?php endforeach; ?>
 
