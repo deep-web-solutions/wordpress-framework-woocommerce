@@ -82,7 +82,7 @@
       "@composer install --ignore-platform-reqs"
     ],
     "composer:update": [
-      "@composer update --ignore-platform-reqs"
+      "@composer update"
     ],
 
     "mess-detector:check": [

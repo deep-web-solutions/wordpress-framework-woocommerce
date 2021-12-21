@@ -5,7 +5,7 @@
         "did_action",
         "add_action",
         "add_filter",
-        "get_current_screen",
+        "__",
         "esc_attr",
         "do_action",
         "wp_parse_args",
