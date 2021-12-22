@@ -254,15 +254,19 @@ abstract class WC_AbstractValidatedProductSettingsTabFunctionality extends Abstr
 	 * @return  array
 	 */
 	public function register_tab( array $tabs ): array {
-		$tabs[ $this->get_tab_slug() ] = array(
-			'label'    => $this->get_tab_title(),
-			'target'   => "{$this->get_tab_slug()}_product_data",
-			'class'    => \array_merge(
-				array( "{$this->get_tab_slug()}_tab" ),
-				$this->get_tab_classes()
-			),
-			'priority' => 65,
-		);
+		global $thepostid;
+
+		if ( true === $this->is_supported_product( $thepostid ) ) {
+			$tabs[ $this->get_tab_slug() ] = array(
+				'label'    => $this->get_tab_title(),
+				'target'   => "{$this->get_tab_slug()}_product_data",
+				'class'    => \array_merge(
+					array( "{$this->get_tab_slug()}_tab" ),
+					$this->get_tab_classes()
+				),
+				'priority' => 65,
+			);
+		}
 
 		return $tabs;
 	}
@@ -278,15 +282,15 @@ abstract class WC_AbstractValidatedProductSettingsTabFunctionality extends Abstr
 	 * @retrun  void
 	 */
 	public function output_tab_panel(): void {
-		global $product_object, $thepostid;
+		global $thepostid;
 
-		if ( $product_object instanceof \WC_Product && true === $this->is_supported_product( $product_object->get_id() ) ) : ?>
+		if ( true === $this->is_supported_product( $thepostid ) ) : ?>
 
 			<div id="<?php echo \esc_attr( "{$this->get_tab_slug()}_product_data" ); ?>" class="panel woocommerce_options_panel">
 				<?php \do_action( $this->get_hook_tag( 'panel', 'before_options_groups' ) ); ?>
 
 				<?php foreach ( $this->get_children() as $child ) : ?>
-					<?php if ( $child instanceof WC_AbstractValidatedProductSettingsGroupFunctionality && true === $child->is_supported_product( $product_object->get_id() ) ) : ?>
+					<?php if ( $child instanceof WC_AbstractValidatedProductSettingsGroupFunctionality && true === $child->is_supported_product( $thepostid ) ) : ?>
 						<?php \do_action( $this->get_hook_tag( 'panel', array( 'before_options_group', $child->get_group_name() ) ) ); ?>
 
 						<div class="options_group <?php echo \esc_attr( \join( ' ', $child->get_group_classes() ) ); ?>">
