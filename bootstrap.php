@@ -43,6 +43,7 @@ require_once __DIR__ . '/bootstrap-functions.php';
 // Define settings constants
 \define( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_WOOCOMMERCE_NAME', dws_wp_framework_get_whitelabel_name() . ': Framework WooCommerce' );
 \define( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_WOOCOMMERCE_VERSION', '1.0.0' );
+\define( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_WOOCOMMERCE_BASE_PATH', __DIR__ );
 
 // Define minimum environment requirements.
 \define( __NAMESPACE__ . '\DWS_WP_FRAMEWORK_WOOCOMMERCE_MIN_PHP', '7.4' );
