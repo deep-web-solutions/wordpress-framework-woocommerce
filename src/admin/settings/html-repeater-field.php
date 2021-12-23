@@ -9,23 +9,22 @@
  *
  * @var     array   $field              The field definition.
  * @var     array   $subfields          The subfields definition.
- * @var     array   $value              The field's current value.
  * @var     array   $default_row_value  A new row's default value.
  *
  * phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
  */
 
-defined( 'ABSPATH' ) || exit;
-
-$tooltip_html = ! empty( $field['desc_tip'] ?? '' ) ? wc_help_tip( $field['desc_tip'] ) : '';
-
-?>
+defined( 'ABSPATH' ) || exit; ?>
 
 <tr valign="top">
 	<th scope="row" class="titledesc">
 		<label for="<?php echo esc_attr( $field['id'] ); ?>">
 			<?php echo esc_html( $field['title'] ); ?>
-			<?php echo wp_kses_post( $tooltip_html ); ?>
+			<?php
+			if ( ! empty( $field['desc_tip'] ?? '' ) ) {
+				wc_help_tip( $field['desc_tip'] );
+			}
+			?>
 		</label>
 	</th>
 	<td id="<?php echo esc_attr( $field['id'] ); ?>" class="forminp forminp-dws-repeater forminp-<?php echo esc_attr( sanitize_title( $field['type'] ) ); ?>">
@@ -37,11 +36,16 @@ $tooltip_html = ! empty( $field['desc_tip'] ?? '' ) ? wc_help_tip( $field['desc_
 						<?php foreach ( $subfields as $subfield ) : ?>
 						<th>
 							<?php echo esc_html( $subfield['title'] ); ?>
+							<?php
+							if ( ! empty( $subfield['desc_tip'] ?? '' ) ) {
+								wc_help_tip( $subfield['desc_tip'] );
+							}
+							?>
 						</th>
 						<?php endforeach; ?>
 					</tr>
 				</thead>
-				<tbody data-rows="<?php echo wc_esc_json( wp_json_encode( $value ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+				<tbody data-rows="<?php echo wc_esc_json( wp_json_encode( $field['value'] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
 				</tbody>
 				<tfoot>
 					<tr>
