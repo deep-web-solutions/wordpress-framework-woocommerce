@@ -266,13 +266,13 @@ abstract class WC_AbstractValidatedProductSettingsGroupFunctionality extends Abs
 	 */
 	public function get_group_name(): string {
 		return Strings::replace_placeholders(
+			self::get_safe_name(),
 			array(
 				'_settings' => '',
 				'_options'  => '',
 				'_product'  => '',
 				'_'         => '-',
-			),
-			self::get_safe_name()
+			)
 		);
 	}
 

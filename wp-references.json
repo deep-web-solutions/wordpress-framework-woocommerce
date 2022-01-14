@@ -7,7 +7,6 @@
         "add_filter",
         "esc_attr",
         "esc_html",
-        "wp_kses_post",
         "sanitize_title",
         "wp_json_encode",
         "sanitize_html_class",
