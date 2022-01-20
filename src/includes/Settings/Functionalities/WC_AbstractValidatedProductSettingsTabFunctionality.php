@@ -284,66 +284,77 @@ abstract class WC_AbstractValidatedProductSettingsTabFunctionality extends Abstr
 	public function output_tab_panel(): void {
 		global $thepostid;
 
-		if ( true === $this->is_supported_product( $thepostid ) ) : ?>
+		if ( true !== $this->is_supported_product( $thepostid ) ) {
+			return;
+		}
 
-			<div id="<?php echo \esc_attr( "{$this->get_tab_slug()}_product_data" ); ?>" class="panel woocommerce_options_panel">
-				<?php \do_action( $this->get_hook_tag( 'panel', 'before_options_groups' ) ); ?>
+		$tab_attributes = array();
+		foreach ( array(
+			'id'    => "{$this->get_tab_slug()}_product_data",
+			'class' => 'panel woocommerce_options_panel',
+		) as $attribute => $value ) {
+			$tab_attributes[] = \esc_attr( $attribute ) . '="' . \esc_attr( $value ) . '"';
+		}
 
-				<?php foreach ( $this->get_children() as $child ) : ?>
-					<?php if ( $child instanceof WC_AbstractValidatedProductSettingsGroupFunctionality && true === $child->is_supported_product( $thepostid ) ) : ?>
-						<?php \do_action( $this->get_hook_tag( 'panel', array( 'before_options_group', $child->get_group_name() ) ) ); ?>
+		?>
 
-						<div class="options_group <?php echo \esc_attr( \join( ' ', $child->get_group_classes() ) ); ?>">
-							<?php
-							foreach ( $child->get_group_fields() as $field_id => $field ) {
-								$meta_key    = $child->generate_meta_key( $field_id );
-								$field_extra = array(
-									'id'    => Strings::maybe_unprefix( \str_replace( '-', '_', $meta_key ) ),
-									'name'  => $meta_key,
-									'value' => \get_post_meta( $thepostid, $meta_key, true ),
-								);
+		<div <?php echo \implode( ' ', $tab_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+			<?php \do_action( $this->get_hook_tag( 'panel', 'before_options_groups' ) ); ?>
 
-								switch ( $field['type'] ?? 'text' ) {
-									case 'text':
-										\woocommerce_wp_text_input( $field + $field_extra );
-										break;
-									case 'textarea':
-										\woocommerce_wp_textarea_input( $field + $field_extra );
-										break;
-									/* @noinspection PhpMissingBreakStatementInspection */
-									case 'multiselect':
-										$field_extra['name']             .= '[]';
-										$field_extra['style']             = 'width: 50%;';
-										$field_extra['custom_attributes'] = array( 'multiple' => 'multiple' );
-										// A multi-select is basically a select with some extra attributes.
-									case 'select':
-										\woocommerce_wp_select( $field + $field_extra );
-										break;
-									case 'radio':
-										\woocommerce_wp_radio( $field + $field_extra );
-										break;
-									case 'checkbox':
-										\woocommerce_wp_checkbox( $field + $field_extra );
-										break;
-									case 'hidden':
-										\woocommerce_wp_hidden_input( $field + $field_extra );
-										break;
-									default:
-										\do_action( $this->get_hook_tag( 'panel', array( 'output_field', $field['type'] ) ), $field_id, $field + $field_extra );
-								}
+			<?php foreach ( $this->get_children() as $child ) : ?>
+				<?php if ( $child instanceof WC_AbstractValidatedProductSettingsGroupFunctionality && true === $child->is_supported_product( $thepostid ) ) : ?>
+					<?php \do_action( $this->get_hook_tag( 'panel', array( 'before_options_group', $child->get_group_name() ) ) ); ?>
+
+					<div class="options_group <?php echo \esc_attr( \join( ' ', $child->get_group_classes() ) ); ?>">
+						<?php
+						foreach ( $child->get_group_fields() as $field_id => $field ) {
+							$meta_key    = $child->generate_meta_key( $field_id );
+							$field_extra = array(
+								'id'    => Strings::maybe_unprefix( \str_replace( '-', '_', $meta_key ) ),
+								'name'  => $meta_key,
+								'value' => \get_post_meta( $thepostid, $meta_key, true ),
+							);
+
+							switch ( $field['type'] ?? 'text' ) {
+								case 'text':
+									\woocommerce_wp_text_input( $field + $field_extra );
+									break;
+								case 'textarea':
+									\woocommerce_wp_textarea_input( $field + $field_extra );
+									break;
+								/* @noinspection PhpMissingBreakStatementInspection */
+								case 'multiselect':
+									$field_extra['name']             .= '[]';
+									$field_extra['style']             = 'width: 50%;';
+									$field_extra['custom_attributes'] = array( 'multiple' => 'multiple' );
+									// A multi-select is basically a select with some extra attributes.
+								case 'select':
+									\woocommerce_wp_select( $field + $field_extra );
+									break;
+								case 'radio':
+									\woocommerce_wp_radio( $field + $field_extra );
+									break;
+								case 'checkbox':
+									\woocommerce_wp_checkbox( $field + $field_extra );
+									break;
+								case 'hidden':
+									\woocommerce_wp_hidden_input( $field + $field_extra );
+									break;
+								default:
+									\do_action( $this->get_hook_tag( 'panel', array( 'output_field', $field['type'] ) ), $field_id, $field + $field_extra );
 							}
-							?>
-						</div>
+						}
+						?>
+					</div>
 
-						<?php \do_action( $this->get_hook_tag( 'panel', array( 'after_options_group', $child->get_group_name() ) ) ); ?>
-					<?php endif; ?>
-				<?php endforeach; ?>
+					<?php \do_action( $this->get_hook_tag( 'panel', array( 'after_options_group', $child->get_group_name() ) ) ); ?>
+				<?php endif; ?>
+			<?php endforeach; ?>
 
-				<?php \do_action( $this->get_hook_tag( 'panel', 'after_options_groups' ) ); ?>
-			</div>
+			<?php \do_action( $this->get_hook_tag( 'panel', 'after_options_groups' ) ); ?>
+		</div>
 
-			<?php
-		endif;
+		<?php
 	}
 
 	/**
