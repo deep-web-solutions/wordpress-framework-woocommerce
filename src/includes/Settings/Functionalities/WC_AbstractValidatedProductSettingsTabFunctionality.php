@@ -317,6 +317,11 @@ abstract class WC_AbstractValidatedProductSettingsTabFunctionality extends Abstr
 
 							switch ( $field['type'] ?? 'text' ) {
 								case 'text':
+								case 'email':
+								case 'tel':
+								case 'url':
+								case 'color':
+								case 'file':
 									\woocommerce_wp_text_input( $field + $field_extra );
 									break;
 								case 'textarea':
